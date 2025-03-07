@@ -1,0 +1,88 @@
+﻿@using System.Web.Optimization
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<head>
+    <title>Logen</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!-- CSS -->
+    @Styles.Render("~/bundles/css")
+
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;        }
+
+        .login-container {
+            background-color: whitesmoke;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            text-align: center;
+        }
+
+            .login-container h2 {
+                margin-bottom: 20px;
+            }
+
+            .login-container input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .login-container button {
+                width: 100%;
+                padding: 10px;
+                background-color: darkgray;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            .login-container button:hover {
+                background-color: #004b70;
+            }
+    </style>
+
+    <!-- JS -->
+    <script src="~/Content/Style/js/modernizr.js"></script>
+    <script src="~/Content/Style/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Content/Style/js/plugins.js"></script>
+    <script src="~/Content/Style/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Style/js/script.js"></script>
+
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Logen</h2>
+        <form method="post" action="@Url.Action("Login", "Auth")">
+            <input type="text" name="username" placeholder="Logen" required>
+            <input type="password" name="password" placeholder="Posword" required>
+            <button type="submit">Register</button>
+
+            <button type="submit">Sobmit</button>
+        </form>
+    </div>
+</body>
