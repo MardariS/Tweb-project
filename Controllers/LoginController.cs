@@ -8,9 +8,14 @@ namespace WEB_Proje.web.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
+        // Logarea
         public ActionResult Login()
         {
+            return View();
+        }
+
+        // Registrarea
+        public ActionResult Register() {
             return View();
         }
     }

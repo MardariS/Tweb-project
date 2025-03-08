@@ -127,6 +127,7 @@
     <Content Include="Content\Style\css\ajax-loader.gif" />
     <Content Include="Content\Style\css\bootstrap.min.css" />
     <Content Include="Content\Style\css\style.css" />
+    <Content Include="Content\Style\css\styleLogin.css" />
     <Content Include="Content\Style\css\vendor.css" />
     <Content Include="Content\Style\images\banner-image.png" />
     <Content Include="Content\Style\images\cart-item1.jpg" />
@@ -305,6 +306,7 @@
     <Content Include="Views\Shared\Footer\FooterTop.cshtml" />
     <Content Include="Views\Shared\Footer\FooterCenter.cshtml" />
     <Content Include="Views\Shared\Footer\FooterBottom.cshtml" />
+    <Content Include="Views\Login\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

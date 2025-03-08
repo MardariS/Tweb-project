@@ -15,6 +15,10 @@ namespace WEB_Proje.web.App_Start {
                       "~/Content/Style/css/style.css",
                       "~/Content/Style/css/vendor.css"));
 
+            bundles.Add(new StyleBundle("~/bundles/LoginCss").Include(
+                      "~/Content/Style/css/styleLogin.css"
+                      ));
+
             // ✅ jQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                       "~/Content/Style/js/jquery-1.11.0.min.js"));

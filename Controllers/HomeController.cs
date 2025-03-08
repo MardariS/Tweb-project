@@ -14,5 +14,9 @@ namespace WEB_Proje.web.Controllers
         public ActionResult Login() {
             return View();
         }
+
+        public ActionResult Register() {
+            return View();
+        }
     }
 }

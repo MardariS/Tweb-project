@@ -1,12 +1,12 @@
 ﻿@using System.Web.Optimization
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Register";
     Layout = null;
 }
 
 <head>
-    <title>Logen</title>
+    <title>Regea</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +31,8 @@
 
 <body>
     <div class="login-container">
-        <h2>Logen</h2>
+        <h2>Regester</h2>
+
         <!-- introducerea login si password -->
         <form action="@Url.Action("Login", "Login")">
             <input type="text" name="username" placeholder="Logen" required>
@@ -41,15 +42,14 @@
         </form>
 
         <!-- La autorizatie -->
-        <form action="@Url.Action("Register", "Login")" method="get">
-            <button type="submit">Registrare</button>
+        <form action="@Url.Action("Login", "Login")" method="get">
+            <button type="submit">Autorizatie</button>
         </form>
 
 
         <!-- Inapoi -->
         <form action="@Url.Action("Index", "Home")" method="get">
             <button type="submit">Back</button>
-        </form>
         </form>
     </div>
 </body>
