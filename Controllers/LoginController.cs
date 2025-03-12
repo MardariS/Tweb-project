@@ -4,17 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WEB_Proje.web.Controllers
-{
-    public class LoginController : Controller
-    {
-        // Logarea
-        public ActionResult Login()
-        {
+namespace WEB_Proje.web.Controllers{
+    public class LoginController : Controller{
+
+        // Logare
+        public ActionResult Login(){
             return View();
         }
 
-        // Registrarea
+        // Registrare
         public ActionResult Register() {
             return View();
         }

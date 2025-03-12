@@ -9,7 +9,7 @@ using System.Web.Optimization;
 namespace WEB_Proje.web.App_Start {
     public class BundleConfig {
         public static void RegisterBundles(BundleCollection bundles) {
-            // 🔹 CSS Bundle 
+            // СSS Bundle 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                       "~/Content/Style/css/bootstrap.min.css",
                       "~/Content/Style/css/style.css",
@@ -19,27 +19,32 @@ namespace WEB_Proje.web.App_Start {
                       "~/Content/Style/css/styleLogin.css"
                       ));
 
-            // ✅ jQuery
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            // -- JS Header -
+            // jQuery
+            bundles.Add(new ScriptBundle("~/jquery").Include(
                       "~/Content/Style/js/jquery-1.11.0.min.js"));
 
-            // 🔹 JS Bundle 
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+            // JS Bundle 
+            bundles.Add(new ScriptBundle("~/modernizr").Include(
                       "~/Content/Style/js/modernizr.js"));
     
-            // ✅ Plugins
-            bundles.Add(new ScriptBundle("~/bundles/plugins").Include(
+            // Plugins
+            bundles.Add(new ScriptBundle("~/plugins").Include(
                       "~/Content/Style/js/plugins.js"));
 
-            // ✅ Bootstrap
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            // Bootstrap
+            bundles.Add(new ScriptBundle("~/bootstrap").Include(
                       "~/Content/Style/js/bootstrap.bundle.min.js"));
 
-            // ✅ Custom Scripts
-            bundles.Add(new ScriptBundle("~/bundles/script").Include(
+            // Custom Scripts
+            bundles.Add(new ScriptBundle("~/script").Include(
                       "~/Content/Style/js/script.js"));
 
-            // Включение оптимизации (сжатие файлов)
+            // -- JS Footer --
+            
+
+
+
             BundleTable.EnableOptimizations = true;
         }
     }

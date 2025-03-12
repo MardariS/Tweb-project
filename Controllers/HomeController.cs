@@ -10,13 +10,5 @@ namespace WEB_Proje.web.Controllers
         public ActionResult Index(){
             return View();
         }
-
-        public ActionResult Login() {
-            return View();
-        }
-
-        public ActionResult Register() {
-            return View();
-        }
     }
 }
