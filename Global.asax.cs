@@ -13,11 +13,10 @@ namespace WEB_Proje.web
 {
     public class Global : HttpApplication{
         void Application_Start(object sender, EventArgs e){
-            // Code that runs on application startup
            AreaRegistration.RegisterAllAreas();
 
             // Bundle
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+           RouteConfig.RegisterRoutes(RouteTable.Routes);
            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }

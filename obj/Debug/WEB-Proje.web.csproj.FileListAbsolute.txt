@@ -91,3 +91,7 @@ D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Memory.xml
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Numerics.Vectors.xml
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Runtime.CompilerServices.Unsafe.xml
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Threading.Tasks.Extensions.xml
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.BussinesLogic.dll
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.Domain.dll
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.BussinesLogic.pdb
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.Domain.pdb
