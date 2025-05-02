@@ -31,17 +31,16 @@
 
 <body>
     <div class="login-container">
-        <h2>Regester</h2>
+        <h2>Inregistrare</h2>
 
         <!-- introducerea login si password -->
-        <form action="@Url.Action("Login", "Login")">
-            <input type="text" name="username" placeholder="Logen" required>
-            <input type="password" name="password" placeholder="Posword" required>
-            <input type="password" name="password" placeholder="Posword again" required>
+        @using(Html.BeginForm("Register", "Login", FormMethod.Post)) {
+            <input type="text" name="Username" placeholder="Username" required />
+            <input type="password" name="Password" placeholder="Password" required />
+           
 
-
-            <button type="submit">Sobmit</button>
-        </form>
+            <button type="submit">Inregistreaza-ma</button>
+        }
 
         <!-- La autorizatie -->
         <form action="@Url.Action("Login", "Login")" method="get">
@@ -51,7 +50,8 @@
 
         <!-- Inapoi -->
         <form action="@Url.Action("Index", "Home")" method="get">
-            <button type="submit">Beck</button>
+            <button type="submit">Inapoi</button>
         </form>
+
     </div>
 </body>

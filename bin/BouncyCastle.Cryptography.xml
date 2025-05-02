@@ -2021,7 +2021,7 @@
              <pre>
               SignerInfo ::= Sequence {
                   version Version,
-                  SignerIdentifier sid,
+                  sid SignerIdentifier,
                   digestAlgorithm DigestAlgorithmIdentifier,
                   authenticatedAttributes [0] IMPLICIT Attributes OPTIONAL,
                   digestEncryptionAlgorithm DigestEncryptionAlgorithmIdentifier,
@@ -3276,6 +3276,57 @@
         </member>
         <member name="F:Org.BouncyCastle.Asn1.Gnu.GnuObjectIdentifiers.EllipticCurve">
             1.3.6.1.4.1.11591.15 - ellipticCurve 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.internet">
+            { iso(1) identifier-organization(3) dod(6) internet(1) } == IETF defined things 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.directory">
+            1.3.6.1.1: Internet directory: X.500 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.mgmt">
+            1.3.6.1.2: Internet management 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.experimental">
+            1.3.6.1.3: 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.cls_private">
+            1.3.6.1.4: 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.security">
+            1.3.6.1.5: Security services 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.SNMPv2">
+            1.3.6.1.6: SNMPv2 -- never really used 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.mail">
+            1.3.6.1.7: mail -- never really used 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.security_mechanisms">
+            IANA security mechanisms; 1.3.6.1.5.5 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.security_nametypes">
+            IANA security nametypes;  1.3.6.1.5.6 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.pkix">
+            PKIX base OID:            1.3.6.1.5.5.7 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.ipsec">
+            IPSEC base OID:                        1.3.6.1.5.5.8 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.IsakmpOakley">
+            IPSEC ISAKMP-Oakley OID:               1.3.6.1.5.5.8.1 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.HmacMD5">
+            IPSEC ISAKMP-Oakley hmacMD5 OID:       1.3.6.1.5.5.8.1.1 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.HmacSha1">
+            IPSEC ISAKMP-Oakley hmacSHA1 OID:      1.3.6.1.5.5.8.1.2 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.HmacTiger">
+            IPSEC ISAKMP-Oakley hmacTIGER OID:     1.3.6.1.5.5.8.1.3 
+        </member>
+        <member name="F:Org.BouncyCastle.Asn1.Iana.IanaObjectIdentifiers.HmacRipeMD160">
+            IPSEC ISAKMP-Oakley hmacRIPEMD160 OID: 1.3.6.1.5.5.8.1.4 
         </member>
         <member name="T:Org.BouncyCastle.Asn1.IAsn1Choice">
             Marker interface for CHOICE objects - if you implement this in a roll-your-own
@@ -5965,8 +6016,7 @@
             
         </member>
         <member name="M:Org.BouncyCastle.Asn1.X509.AuthorityKeyIdentifier.#ctor(Org.BouncyCastle.Asn1.X509.SubjectPublicKeyInfo)">
-                     *
-                     * Calulates the keyidentifier using a SHA1 hash over the BIT STRING
+                     * Calculates the keyIdentifier using a SHA1 hash over the BIT STRING
                      * from SubjectPublicKeyInfo as defined in RFC2459.
                      *
                      * Example of making a AuthorityKeyIdentifier:
@@ -6360,7 +6410,7 @@
                    }
              </pre>
             
-             @see org.bouncycastle.asn1.x509.NameConstraints
+             @see Org.Bouncycastle.Asn1.X509.NameConstraints
             
         </member>
         <member name="M:Org.BouncyCastle.Asn1.X509.GeneralSubtree.#ctor(Org.BouncyCastle.Asn1.X509.GeneralName,Org.BouncyCastle.Math.BigInteger,Org.BouncyCastle.Math.BigInteger)">
@@ -6984,7 +7034,7 @@
                   }
             </pre>
             
-            @see org.bouncycastle.asn1.x509.sigi.PersonalData
+            @see Org.BouncyCastle.Asn1.X509.sigi.PersonalData
             
         </member>
         <member name="M:Org.BouncyCastle.Asn1.X509.SigI.NameOrPseudonym.#ctor(Org.BouncyCastle.Asn1.X500.DirectoryString)">
@@ -7063,8 +7113,8 @@
                    }
              </pre>
             
-             @see org.bouncycastle.asn1.x509.sigi.NameOrPseudonym
-             @see org.bouncycastle.asn1.x509.sigi.SigIObjectIdentifiers
+             @see Org.BouncyCastle.Asn1.X509.sigi.NameOrPseudonym
+             @see Org.BouncyCastle.Asn1.X509.sigi.SigIObjectIdentifiers
         </member>
         <member name="M:Org.BouncyCastle.Asn1.X509.SigI.PersonalData.#ctor(Org.BouncyCastle.Asn1.Asn1Sequence)">
              Constructor from Asn1Sequence.
@@ -7176,7 +7226,7 @@
                  AttributeValue ::= ANY DEFINED BY AttributeType
              </pre>
             
-             @see org.bouncycastle.asn1.x509.X509Name for AttributeType ObjectIdentifiers.
+             @see Org.BouncyCastle.Asn1.X509.X509Name for AttributeType ObjectIdentifiers.
         </member>
         <member name="M:Org.BouncyCastle.Asn1.X509.SubjectDirectoryAttributes.#ctor(Org.BouncyCastle.Asn1.Asn1Sequence)">
              Constructor from Asn1Sequence.
@@ -7433,8 +7483,8 @@
                        }
             </pre>
             
-            @see org.bouncycastle.asn1.x509.Target
-            @see org.bouncycastle.asn1.x509.TargetInformation
+            @see Org.BouncyCastle.Asn1.X509.Target
+            @see Org.BouncyCastle.Asn1.X509.TargetInformation
         </member>
         <member name="M:Org.BouncyCastle.Asn1.X509.Targets.GetInstance(System.Object)">
             Creates an instance of a Targets from the given object.
@@ -11358,17 +11408,17 @@
         <member name="M:Org.BouncyCastle.Cms.CmsSignedDataGenerator.Generate(Org.BouncyCastle.Cms.CmsProcessable)">
             generate a signed object that for a CMS Signed Data object
         </member>
-        <member name="M:Org.BouncyCastle.Cms.CmsSignedDataGenerator.Generate(System.String,Org.BouncyCastle.Cms.CmsProcessable,System.Boolean)">
-            generate a signed object that for a CMS Signed Data
-            object  - if encapsulate is true a copy
-            of the message will be included in the signature. The content type
-            is set according to the OID represented by the string signedContentType.
-        </member>
         <member name="M:Org.BouncyCastle.Cms.CmsSignedDataGenerator.Generate(Org.BouncyCastle.Cms.CmsProcessable,System.Boolean)">
             generate a signed object that for a CMS Signed Data
             object - if encapsulate is true a copy
             of the message will be included in the signature with the
             default content type "data".
+        </member>
+        <member name="M:Org.BouncyCastle.Cms.CmsSignedDataGenerator.Generate(System.String,Org.BouncyCastle.Cms.CmsProcessable,System.Boolean)">
+            generate a signed object that for a CMS Signed Data
+            object  - if encapsulate is true a copy
+            of the message will be included in the signature. The content type
+            is set according to the OID represented by the string signedContentType.
         </member>
         <member name="M:Org.BouncyCastle.Cms.CmsSignedDataGenerator.GenerateCounterSigners(Org.BouncyCastle.Cms.SignerInformation)">
              generate a set of one or more SignerInformation objects representing counter signatures on
@@ -11441,7 +11491,7 @@
             
              @param type type of store to create
              @return a store of attribute certificates
-             @exception org.bouncycastle.x509.NoSuchStoreException if the store type isn't available.
+             @exception Org.BouncyCastle.X509.NoSuchStoreException if the store type isn't available.
              @exception CmsException if a general exception prevents creation of the X509Store
         </member>
         <member name="M:Org.BouncyCastle.Cms.CmsSignedDataParser.GetCertificates">
@@ -12818,7 +12868,7 @@
             <summary>
             The value of MacTag, as computed by round 3.
             
-            See JPAKEUtil#calculateMacTag(string, string, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, org.bouncycastle.crypto.Digest)
+            See JPAKEUtil#calculateMacTag(string, string, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, Org.BouncyCastle.Crypto.Digest)
             </summary>
         </member>
         <member name="T:Org.BouncyCastle.Crypto.Agreement.JPake.JPakeUtilities">
@@ -13357,20 +13407,20 @@
             
              @return the blocksize for the underlying cipher.
         </member>
-        <member name="M:Org.BouncyCastle.Crypto.BufferedBlockCipher.GetUpdateOutputSize(System.Int32)">
-             return the size of the output buffer required for an update
-             an input of len bytes.
-            
-             @param len the length of the input.
-             @return the space required to accommodate a call to update
-             with len bytes of input.
-        </member>
         <member name="M:Org.BouncyCastle.Crypto.BufferedBlockCipher.GetOutputSize(System.Int32)">
              return the size of the output buffer required for an update plus a
              doFinal with an input of len bytes.
             
              @param len the length of the input.
              @return the space required to accommodate a call to update and doFinal
+             with len bytes of input.
+        </member>
+        <member name="M:Org.BouncyCastle.Crypto.BufferedBlockCipher.GetUpdateOutputSize(System.Int32)">
+             return the size of the output buffer required for an update
+             an input of len bytes.
+            
+             @param len the length of the input.
+             @return the space required to accommodate a call to update
              with len bytes of input.
         </member>
         <member name="M:Org.BouncyCastle.Crypto.BufferedBlockCipher.ProcessByte(System.Byte,System.Byte[],System.Int32)">
@@ -13484,126 +13534,137 @@
             </remarks>
         </member>
         <member name="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest">
-            Implementation of the cryptographic hash function Blake2b.
-            <p/>
-            Blake2b offers a built-in keying mechanism to be used directly
-            for authentication ("Prefix-MAC") rather than a HMAC construction.
-            <p/>
-            Blake2b offers a built-in support for a salt for randomized hashing
-            and a personal string for defining a unique hash function for each application.
-            <p/>
+            <summary>
+            Implementation of the cryptographic hash function Blake2b. 
             BLAKE2b is optimized for 64-bit platforms and produces digests of any size
             between 1 and 64 bytes.
+            </summary>
+            
+            <remarks>
+            <para>
+            Blake2b offers a built-in keying mechanism to be used directly
+            for authentication ("Prefix-MAC") rather than a HMAC construction.
+            </para>
+            <para>
+            Blake2b offers a built-in support for a salt for randomized hashing
+            and a personal string for defining a unique hash function for each application.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest"/>.
+            </summary>
+        </member>
+        <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.#ctor(Org.BouncyCastle.Crypto.Digests.Blake2bDigest)">
+            <summary>
+            Constructs a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest"/> from another <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest"/>./>.
+            </summary>
+            <param name="digest">The original instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest"/> that is copied.</param>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.#ctor(System.Int32)">
-             Basic sized constructor - size in bits.
-            
-             @param digestSize size of the digest in bits
+            <summary>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest"/> with a given digest size.
+            </summary>
+            <param name="digestSize">Digest size in bits.</param>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.#ctor(System.Byte[])">
-             Blake2b for authentication ("Prefix-MAC mode").
-             After calling the doFinal() method, the key will
-             remain to be used for further computations of
-             this instance.
-             The key can be overwritten using the clearKey() method.
+            <summary>
+            <para>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest"/> with a key.
+            </para>
             
-             @param key A key up to 64 bytes or null
+            Blake2b for authentication ("Prefix-MAC mode").
+            After calling the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.DoFinal(System.Byte[],System.Int32)"/> method, the key will
+            remain to be used for further computations of this instance.
+            The key can be cleared using the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.ClearKey"/> method.
+            </summary>
+            <param name="key">A key up to 64 bytes or null.</param>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.#ctor(System.Byte[],System.Int32,System.Byte[],System.Byte[])">
-             Blake2b with key, required digest length (in bytes), salt and personalization.
-             After calling the doFinal() method, the key, the salt and the personal string
-             will remain and might be used for further computations with this instance.
-             The key can be overwritten using the clearKey() method, the salt (pepper)
-             can be overwritten using the clearSalt() method.
+            <summary>
+            <para>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest"/> with a key, required digest length (in bytes), salt and personalization.
+            </para>
             
-             @param key             A key up to 64 bytes or null
-             @param digestLength    from 1 up to 64 bytes
-             @param salt            16 bytes or null
-             @param personalization 16 bytes or null
+            After calling the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.DoFinal(System.Byte[],System.Int32)"/> method, the key, the salt and the personalization
+            will remain and might be used for further computations with this instance.
+            The key can be overwritten using the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.ClearKey"/> method, the salt (pepper)
+            can be overwritten using the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.ClearSalt"/> method.
+            </summary>
+            <param name="key">A key up to 64 bytes or null.</param>
+            <param name="digestLength">Digest length from 1 to 64 bytes.</param>
+            <param name="salt">A 16 bytes or nullable salt.</param>
+            <param name="personalization">A 16 bytes or null personalization.</param>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.Update(System.Byte)">
-             update the message digest with a single byte.
-            
-             @param b the input byte to be entered.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.BlockUpdate(System.Byte[],System.Int32,System.Int32)">
-             update the message digest with a block of bytes.
-            
-             @param message the byte array containing the data.
-             @param offset  the offset into the byte array where the data starts.
-             @param len     the length of the data.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.DoFinal(System.Byte[],System.Int32)">
-             close the digest, producing the final digest value. The doFinal
-             call leaves the digest reset.
+            <summary>Close the digest, producing the final digest value.</summary>
+            <remarks>
+             The <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.DoFinal(System.Byte[],System.Int32)"/> call leaves the digest reset. 
              Key, salt and personal string remain.
-            
-             @param out       the array the digest is to be copied into.
-             @param outOffset the offset into the out array the digest is to start at.
+            </remarks>
+            <param name="output">The byte array the digest is to be copied into.</param>
+            <param name="outOffset">The offset into the byte array the digest is to start at.</param>
+            <returns>The number of bytes written.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.Reset">
+            <summary>
             Reset the digest back to it's initial state.
-            The key, the salt and the personal string will
-            remain for further computations.
+            The key, the salt and the personalization will remain for further computations.
+            </summary>
         </member>
         <member name="P:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.AlgorithmName">
-             return the algorithm name
-            
-             @return the algorithm name
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.GetDigestSize">
-             return the size, in bytes, of the digest produced by this message digest.
-            
-             @return the size, in bytes, of the digest produced by this message digest.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.GetByteLength">
-             Return the size in bytes of the internal buffer the digest applies it's compression
+            <summary>
+             Return the size in bytes of the internal buffer the digest applies it's compression 
              function to.
-            
-             @return byte length of the digests internal buffer.
+             </summary>
+            <returns>The byte length of the digests internal buffer.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.ClearKey">
-            Overwrite the key
-            if it is no longer used (zeroization)
+            <summary>
+            Clears the key.
+            </summary>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2bDigest.ClearSalt">
-            Overwrite the salt (pepper) if it
-            is secret and no longer used (zeroization)
+            <summary>
+            Clears the salt (pepper).
+            </summary>
         </member>
         <member name="T:Org.BouncyCastle.Crypto.Digests.Blake2sDigest">
-            Implementation of the cryptographic hash function BLAKE2s.
-            <p/>
-            BLAKE2s offers a built-in keying mechanism to be used directly
-            for authentication ("Prefix-MAC") rather than a HMAC construction.
-            <p/>
-            BLAKE2s offers a built-in support for a salt for randomized hashing
-            and a personal string for defining a unique hash function for each application.
-            <p/>
+            <summary>
+            Implementation of the cryptographic hash function BLAKE2s. 
             BLAKE2s is optimized for 32-bit platforms and produces digests of any size
             between 1 and 32 bytes.
-        </member>
-        <member name="F:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.blake2s_IV">
-             BLAKE2s Initialization Vector
+            </summary>
             
-        </member>
-        <member name="F:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.blake2s_sigma">
-             Message word permutations
-            
-        </member>
-        <member name="F:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.buffer">
-            Whenever this buffer overflows, it will be processed in the Compress()
-            function. For performance issues, long messages will not use this buffer.
+            <remarks>
+            <para>
+            BLAKE2s offers a built-in keying mechanism to be used directly
+            for authentication ("Prefix-MAC") rather than a HMAC construction.
+            </para>
+            <para>
+            BLAKE2s is optimized for 32-bit platforms and produces digests of any size
+            between 1 and 32 bytes.
+            </para>
+            </remarks>
         </member>
         <member name="F:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.bufferPos">
              Position of last inserted byte
-            
-        </member>
-        <member name="F:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.internalState">
-             Internal state, in the BLAKE2 paper it is called v
-            
-        </member>
-        <member name="F:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.chainValue">
-             State vector, in the BLAKE2 paper it is called h
             
         </member>
         <member name="F:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.t0">
@@ -13619,93 +13680,117 @@
             
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.#ctor">
-            BLAKE2s-256 for hashing.
+            <summary>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2sDigest"/>.
+            </summary>
+        </member>
+        <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.#ctor(Org.BouncyCastle.Crypto.Digests.Blake2sDigest)">
+            <summary>
+            Constructs a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2sDigest"/> from another <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2sDigest"/>./>.
+            </summary>
+            <param name="digest">The original instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2sDigest"/> that is copied.</param>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.#ctor(System.Int32)">
-             BLAKE2s for hashing.
-            
-             @param digestBits the desired digest length in bits. Must be a multiple of 8 and less than 256.
+            <summary>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2sDigest"/> with a given digest size.
+            </summary>
+            <param name="digestBits">Digest size in bits.</param>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.#ctor(System.Byte[])">
-             BLAKE2s for authentication ("Prefix-MAC mode").
-             <p/>
-             After calling the doFinal() method, the key will remain to be used for
-             further computations of this instance. The key can be overwritten using
-             the clearKey() method.
+            <summary>
+            <para>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2sDigest"/> with a key.
+            </para>
             
-             @param key a key up to 32 bytes or null
+            Blake2s for authentication ("Prefix-MAC mode").
+            After calling the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.DoFinal(System.Byte[],System.Int32)"/> method, the key will
+            remain to be used for further computations of this instance.
+            The key can be cleared using the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.ClearKey"/> method.
+            </summary>
+            <param name="key">A key up to 32 bytes or null.</param>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.#ctor(System.Byte[],System.Int32,System.Byte[],System.Byte[])">
-             BLAKE2s with key, required digest length, salt and personalization.
-             <p/>
-             After calling the doFinal() method, the key, the salt and the personal
-             string will remain and might be used for further computations with this
-             instance. The key can be overwritten using the clearKey() method, the
-             salt (pepper) can be overwritten using the clearSalt() method.
+            <summary>
+            <para>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2sDigest"/> with a key, required digest length (in bytes), salt and personalization.
+            </para>
             
-             @param key             a key up to 32 bytes or null
-             @param digestBytes     from 1 up to 32 bytes
-             @param salt            8 bytes or null
-             @param personalization 8 bytes or null
+            After calling the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.DoFinal(System.Byte[],System.Int32)"/> method, the key, the salt and the personalization
+            will remain and might be used for further computations with this instance.
+            The key can be overwritten using the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.ClearKey"/> method, the salt (pepper)
+            can be overwritten using the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.ClearSalt"/> method.
+            </summary>
+            <param name="key">A key up to 32 bytes or null.</param>
+            <param name="digestBytes">Digest length from 1 to 32 bytes.</param>
+            <param name="salt">A 8 bytes or nullable salt.</param>
+            <param name="personalization">A 8 bytes or null personalization.</param>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.Update(System.Byte)">
-             Update the message digest with a single byte.
-            
-             @param b the input byte to be entered.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.BlockUpdate(System.Byte[],System.Int32,System.Int32)">
-             Update the message digest with a block of bytes.
-            
-             @param message the byte array containing the data.
-             @param offset  the offset into the byte array where the data starts.
-             @param len     the length of the data.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.DoFinal(System.Byte[],System.Int32)">
-             Close the digest, producing the final digest value. The doFinal() call
-             leaves the digest reset. Key, salt and personal string remain.
-            
-             @param out       the array the digest is to be copied into.
-             @param outOffset the offset into the out array the digest is to start at.
+            <summary>Close the digest, producing the final digest value.</summary>
+            <remarks>
+             The <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.DoFinal(System.Byte[],System.Int32)"/> call leaves the digest reset. 
+             Key, salt and personal string remain.
+            </remarks>
+            <param name="output">The byte array the digest is to be copied into.</param>
+            <param name="outOffset">The offset into the byte array the digest is to start at.</param>
+            <returns>The number of bytes written.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.Reset">
-            Reset the digest back to its initial state. The key, the salt and the
-            personal string will remain for further computations.
+            <summary>
+            Reset the digest back to it's initial state.
+            The key, the salt and the personalization will remain for further computations.
+            </summary>
         </member>
         <member name="P:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.AlgorithmName">
-             Return the algorithm name.
-            
-             @return the algorithm name
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.GetDigestSize">
-             Return the size in bytes of the digest produced by this message digest.
-            
-             @return the size in bytes of the digest produced by this message digest.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.GetByteLength">
-             Return the size in bytes of the internal buffer the digest applies its
-             compression function to.
-            
-             @return byte length of the digest's internal buffer.
+            <summary>
+             Return the size in bytes of the internal buffer the digest applies it's compression 
+             function to.
+             </summary>
+            <returns>The byte length of the digests internal buffer.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.ClearKey">
-            Overwrite the key if it is no longer used (zeroization).
+            <summary>
+            Clears the key.
+            </summary>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2sDigest.ClearSalt">
-            Overwrite the salt (pepper) if it is secret and no longer used
-            (zeroization).
+            <summary>
+            Clears the salt (pepper).
+            </summary>
         </member>
         <member name="T:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest">
+            <summary>
             Implementation of the eXtendable Output Function (XOF) BLAKE2xs.
-            <p/>
-            BLAKE2xs offers a built-in keying mechanism to be used directly
-            for authentication ("Prefix-MAC") rather than a HMAC construction.
-            <p/>
-            BLAKE2xs offers a built-in support for a salt for randomized hashing
-            and a personal string for defining a unique hash function for each application.
-            <p/>
             BLAKE2xs is optimized for 32-bit platforms and produces digests of any size
             between 1 and 2^16-2 bytes. The length can also be unknown and then the maximum
             length will be 2^32 blocks of 32 bytes.
+            </summary>
+            
+            <remarks>
+            <para>
+            BLAKE2xs offers a built-in keying mechanism to be used directly
+            for authentication ("Prefix-MAC") rather than a HMAC construction.
+            </para>
+            <para>
+            BLAKE2xs offers a built-in support for a salt for randomized hashing
+            and a personal string for defining a unique hash function for each application.
+            </para>
+            </remarks>
         </member>
         <member name="F:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.UnknownDigestLength">
             Magic number to indicate an unknown length of digest
@@ -13737,88 +13822,107 @@
             Current node offset incremented by 1 every round.
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.#ctor">
-            BLAKE2xs for hashing with unknown digest length
+            <summary>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest"/> for hashing an unknown digest length.
+            </summary>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.#ctor(System.Int32)">
-             BLAKE2xs for hashing
-            
-             @param digestBytes The desired digest length in bytes. Must be above 1 and less than 2^16-1
+            <summary>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest"/> with a given digest size.
+            </summary>
+            <param name="digestBytes">The desired digest length in bytes. Must be above 1 and less than 2^16-1.</param>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.#ctor(System.Int32,System.Byte[])">
-             BLAKE2xs with key
-            
-             @param digestBytes The desired digest length in bytes. Must be above 1 and less than 2^16-1
-             @param key         A key up to 32 bytes or null
+            <summary>
+            <para>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2bDigest"/> with a key and given digest length.
+            </para>
+            After calling the <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.DoFinal(System.Byte[],System.Int32)"/> method, the key will
+            remain to be used for further computations of this instance.
+            </summary>
+            <param name="digestBytes">The desired digest length in bytes. Must be above 1 and less than 2^16-1.</param>
+            <param name="key">A key up to 32 bytes or null.</param>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.#ctor(System.Int32,System.Byte[],System.Byte[],System.Byte[])">
-             BLAKE2xs with key, salt and personalization
-            
-             @param digestBytes     The desired digest length in bytes. Must be above 1 and less than 2^16-1
-             @param key             A key up to 32 bytes or null
-             @param salt            8 bytes or null
-             @param personalization 8 bytes or null
+            <summary>
+            <para>
+            Initializes a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest"/> with a key, required digest length (in bytes), salt and personalization.
+            </para>
+            </summary>
+            <param name="digestBytes">The desired digest length in bytes. Must be above 1 and less than 2^16-1.</param>
+            <param name="key">A key up to 32 bytes or null.</param>
+            <param name="salt">A 8 bytes or null salt.</param>
+            <param name="personalization">A 8 bytes or null personalization.</param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.#ctor(Org.BouncyCastle.Crypto.Digests.Blake2xsDigest)">
+            <summary>
+            Constructs a new instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest"/> from another <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest"/>./>.
+            </summary>
+            <param name="digest">The original instance of <see cref="T:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest"/> that is copied.</param>
         </member>
         <member name="P:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.AlgorithmName">
-             Return the algorithm name.
-            
-             @return the algorithm name
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.GetDigestSize">
-             Return the size in bytes of the digest produced by this message digest.
-            
-             @return the size in bytes of the digest produced by this message digest.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.GetByteLength">
-             Return the size in bytes of the internal buffer the digest applies its
-             compression function to.
-            
-             @return byte length of the digest's internal buffer.
+            <summary>
+             Return the size in bytes of the internal buffer the digest applies it's compression 
+             function to.
+             </summary>
+            <returns>The byte length of the digests internal buffer.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.GetUnknownMaxLength">
+            <summary>
              Return the maximum size in bytes the digest can produce when the length
              is unknown
-            
-             @return byte length of the largest digest with unknown length
+            </summary>
+            <returns>The byte length of the largest digest with unknown length</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.Update(System.Byte)">
-             Update the message digest with a single byte.
-            
-             @param in the input byte to be entered.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.BlockUpdate(System.Byte[],System.Int32,System.Int32)">
-             Update the message digest with a block of bytes.
-            
-             @param in    the byte array containing the data.
-             @param inOff the offset into the byte array where the data starts.
-             @param len   the length of the data.
+            <inheritdoc />
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.Reset">
-            Reset the digest back to its initial state. The key, the salt and the
-            personal string will remain for further computations.
+            <summary>
+            Reset the digest back to it's initial state.
+            The key, the salt and the personalization will remain for further computations.
+            </summary>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.DoFinal(System.Byte[],System.Int32)">
-             Close the digest, producing the final digest value. The doFinal() call
-             leaves the digest reset. Key, salt and personal string remain.
-            
-             @param out       the array the digest is to be copied into.
-             @param outOffset the offset into the out array the digest is to start at.
+            <summary>Close the digest, producing the final digest value.</summary>
+            <remarks>
+             The <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.DoFinal(System.Byte[],System.Int32)"/> call leaves the digest reset. 
+             Key, salt and personal string remain.
+            </remarks>
+            <param name="output">The byte array the digest is to be copied into.</param>
+            <param name="outOff">The offset into the byte array the digest is to start at.</param>
+            <returns>The number of bytes written.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.OutputFinal(System.Byte[],System.Int32,System.Int32)">
-             Close the digest, producing the final digest value. The doFinal() call
-             leaves the digest reset. Key, salt, personal string remain.
-            
-             @param out    output array to write the output bytes to.
-             @param outOff offset to start writing the bytes at.
-             @param outLen the number of output bytes requested.
+            <summary>Close the digest, producing the final digest value.</summary>
+            <remarks>
+             The <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.OutputFinal(System.Byte[],System.Int32,System.Int32)"/> call leaves the digest reset. 
+             Key, salt and personal string remain.
+            </remarks>
+            <param name="output">The output array to write the output bytes to.</param>
+            <param name="outOff">The offset to start writing the bytes at.</param>
+            <param name="outLen">The number of output bytes requested.</param>
+            <returns>The number of bytes written.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.Output(System.Byte[],System.Int32,System.Int32)">
-             Start outputting the results of the final calculation for this digest. Unlike doFinal, this method
-             will continue producing output until the Xof is explicitly reset, or signals otherwise.
-            
-             @param out    output array to write the output bytes to.
-             @param outOff offset to start writing the bytes at.
-             @param outLen the number of output bytes requested.
-             @return the number of bytes written
+            <summary>
+            Start outputting the results of the final calculation for this digest. Unlike <see cref="M:Org.BouncyCastle.Crypto.Digests.Blake2xsDigest.DoFinal(System.Byte[],System.Int32)"/>, this method
+            will continue producing output until the Xof is explicitly reset, or signals otherwise.
+            </summary>
+            <param name="output">The output array to write the output bytes to.</param>
+            <param name="outOff">The offset to start writing the bytes at.</param>
+            <param name="outLen">The number of output bytes requested.</param>
+            <returns>The number of bytes written.</returns>
         </member>
         <member name="F:Org.BouncyCastle.Crypto.Digests.Blake3Digest.ERR_OUTPUTTING">
             Already outputting error.
@@ -15244,10 +15348,7 @@
             @param sBoxName name of the S-Box
             @return byte array representing the S-Box
         </member>
-        <member name="F:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.STATE_SIZE">
-            Constants
-        </member>
-        <member name="F:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.workingKey">
+        <member name="F:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.workingKeyAndIV">
             Variables to hold the state of the engine during encryption and
             decryption
         </member>
@@ -15258,36 +15359,27 @@
              @param param        The parameters required to set up the cipher.
              @throws ArgumentException If the params argument is inappropriate.
         </member>
-        <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.InitGrain">
-            320 clocks initialization phase.
-        </member>
-        <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.GetOutputNFSR">
-             Get output from non-linear function g(x).
+        <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.GetOutput">
+             Get output from output function h(x).
             
-             @return Output from NFSR.
+             @return y_t.
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.GetOutputLFSR">
              Get output from linear function f(x).
             
              @return Output from LFSR.
         </member>
-        <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.GetOutput">
-             Get output from output function h(x).
+        <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.GetOutputNFSR">
+             Get output from non-linear function g(x).
             
-             @return y_t.
+             @return Output from NFSR.
         </member>
-        <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.Shift(System.UInt32[],System.UInt32)">
+        <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.ShiftBit(System.UInt32[],System.UInt32)">
              Shift array 1 bit and add val to index.Length - 1.
             
              @param array The array to shift.
              @param val   The value to shift in.
              @return The shifted array with val added to index.Length - 1.
-        </member>
-        <member name="M:Org.BouncyCastle.Crypto.Engines.Grain128AeadEngine.SetKey(System.Byte[],System.Byte[])">
-             Set keys, reset cipher.
-            
-             @param keyBytes The key.
-             @param ivBytes  The IV.
         </member>
         <member name="T:Org.BouncyCastle.Crypto.Engines.HC128Engine">
              HC-128 is a software-efficient stream cipher created by Hongjun Wu. It
@@ -15439,23 +15531,23 @@
         <member name="M:Org.BouncyCastle.Crypto.Engines.NaccacheSternEngine.Init(System.Boolean,Org.BouncyCastle.Crypto.ICipherParameters)">
              Initializes this algorithm. Must be called before all other Functions.
             
-             @see org.bouncycastle.crypto.AsymmetricBlockCipher#init(bool,
-                  org.bouncycastle.crypto.CipherParameters)
+             @see Org.BouncyCastle.Crypto.AsymmetricBlockCipher#init(bool,
+                  Org.BouncyCastle.Crypto.CipherParameters)
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Engines.NaccacheSternEngine.GetInputBlockSize">
              Returns the input block size of this algorithm.
             
-             @see org.bouncycastle.crypto.AsymmetricBlockCipher#GetInputBlockSize()
+             @see Org.BouncyCastle.Crypto.AsymmetricBlockCipher#GetInputBlockSize()
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Engines.NaccacheSternEngine.GetOutputBlockSize">
              Returns the output block size of this algorithm.
             
-             @see org.bouncycastle.crypto.AsymmetricBlockCipher#GetOutputBlockSize()
+             @see Org.BouncyCastle.Crypto.AsymmetricBlockCipher#GetOutputBlockSize()
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Engines.NaccacheSternEngine.ProcessBlock(System.Byte[],System.Int32,System.Int32)">
              Process a single Block using the Naccache-Stern algorithm.
             
-             @see org.bouncycastle.crypto.AsymmetricBlockCipher#ProcessBlock(byte[],
+             @see Org.BouncyCastle.Crypto.AsymmetricBlockCipher#ProcessBlock(byte[],
                   int, int)
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Engines.NaccacheSternEngine.Encrypt(Org.BouncyCastle.Math.BigInteger)">
@@ -16626,10 +16718,12 @@
              @return a vector containing the found primes as Integer
         </member>
         <member name="T:Org.BouncyCastle.Crypto.Generators.OpenBsdBCrypt">
-            Password hashing scheme BCrypt,
-            designed by Niels Provos and David Mazières, using the
-            String format and the Base64 encoding
-            of the reference implementation on OpenBSD
+            <summary>Password hashing scheme BCrypt.</summary>
+            <remarks>
+            Designed by Niels Provos and David Mazières, using the string format and the Base64 encoding of the reference
+            implementation in OpenBSD. Passwords are encoded using UTF-8 when provided as char[]. Encoded passwords longer than
+            72 bytes are truncated and all remaining bytes are ignored.
+            </remarks>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Generators.OpenBsdBCrypt.CreateBcryptString(System.String,System.Byte[],System.Byte[],System.Int32)">
              Creates a 60 character Bcrypt String, including
@@ -17132,28 +17226,28 @@
         </member>
         <member name="M:Org.BouncyCastle.Crypto.IDigest.GetDigestSize">
             <summary>Return the size, in bytes, of the digest produced by this message digest.</summary>
-            <returns>the size, in bytes, of the digest produced by this message digest.</returns>
+            <returns>The size, in bytes, of the digest produced by this message digest.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.IDigest.GetByteLength">
             <summary>Return the size, in bytes, of the internal buffer used by this digest.</summary>
-            <returns>the size, in bytes, of the internal buffer used by this digest.</returns>
+            <returns>The size, in bytes, of the internal buffer used by this digest.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.IDigest.Update(System.Byte)">
             <summary>Update the message digest with a single byte.</summary>
-            <param name="input">the input byte to be entered.</param>
+            <param name="input">The input byte to be entered.</param>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.IDigest.BlockUpdate(System.Byte[],System.Int32,System.Int32)">
             <summary>Update the message digest with a block of bytes.</summary>
-            <param name="input">the byte array containing the data.</param>
-            <param name="inOff">the offset into the byte array where the data starts.</param>
-            <param name="inLen">the length of the data.</param>
+            <param name="input">The byte array containing the data.</param>
+            <param name="inOff">The offset into the byte array where the data starts.</param>
+            <param name="inLen">The length of the data.</param>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.IDigest.DoFinal(System.Byte[],System.Int32)">
             <summary>Close the digest, producing the final digest value.</summary>
             <remarks>This call leaves the digest reset.</remarks>
-            <param name="output">the byte array the digest is to be copied into.</param>
-            <param name="outOff">the offset into the byte array the digest is to start at.</param>
-            <returns>the number of bytes written</returns>
+            <param name="output">The byte array the digest is to be copied into.</param>
+            <param name="outOff">The offset into the byte array the digest is to start at.</param>
+            <returns>The number of bytes written.</returns>
         </member>
         <member name="M:Org.BouncyCastle.Crypto.IDigest.Reset">
             <summary>Reset the digest back to its initial state.</summary>
@@ -18161,19 +18255,19 @@
             
              @param cipher the underlying block cipher this buffering object wraps.
         </member>
-        <member name="M:Org.BouncyCastle.Crypto.Modes.CtsBlockCipher.GetUpdateOutputSize(System.Int32)">
-             return the size of the output buffer required for an update of 'length' bytes.
-            
-             @param length the outLength of the input.
-             @return the space required to accommodate a call to update
-             with length bytes of input.
-        </member>
         <member name="M:Org.BouncyCastle.Crypto.Modes.CtsBlockCipher.GetOutputSize(System.Int32)">
              return the size of the output buffer required for an update plus a
              doFinal with an input of length bytes.
             
              @param length the outLength of the input.
              @return the space required to accommodate a call to update and doFinal
+             with length bytes of input.
+        </member>
+        <member name="M:Org.BouncyCastle.Crypto.Modes.CtsBlockCipher.GetUpdateOutputSize(System.Int32)">
+             return the size of the output buffer required for an update of 'length' bytes.
+            
+             @param length the outLength of the input.
+             @return the space required to accommodate a call to update
              with length bytes of input.
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Modes.CtsBlockCipher.ProcessByte(System.Byte,System.Byte[],System.Int32)">
@@ -20673,7 +20767,7 @@
             @return <code>&#961; := k partmod (&#964;<sup>m</sup> - 1)/(&#964; - 1)</code>
         </member>
         <member name="M:Org.BouncyCastle.Math.EC.Abc.Tnaf.MultiplyRTnaf(Org.BouncyCastle.Math.EC.AbstractF2mPoint,Org.BouncyCastle.Math.BigInteger)">
-            Multiplies a {@link org.bouncycastle.math.ec.AbstractF2mPoint AbstractF2mPoint}
+            Multiplies a {@link Org.BouncyCastle.Math.EC.AbstractF2mPoint AbstractF2mPoint}
             by a <code>BigInteger</code> using the reduced <code>&#964;</code>-adic
             NAF (RTNAF) method.
             @param p The AbstractF2mPoint to Multiply.
@@ -20681,7 +20775,7 @@
             @return <code>k * p</code>
         </member>
         <member name="M:Org.BouncyCastle.Math.EC.Abc.Tnaf.MultiplyTnaf(Org.BouncyCastle.Math.EC.AbstractF2mPoint,Org.BouncyCastle.Math.EC.Abc.ZTauElement)">
-            Multiplies a {@link org.bouncycastle.math.ec.AbstractF2mPoint AbstractF2mPoint}
+            Multiplies a {@link Org.BouncyCastle.Math.EC.AbstractF2mPoint AbstractF2mPoint}
             by an element <code>&#955;</code> of <code><b>Z</b>[&#964;]</code>
             using the <code>&#964;</code>-adic NAF (TNAF) method.
             @param p The AbstractF2mPoint to Multiply.
@@ -20690,7 +20784,7 @@
             @return <code>&#955; * p</code>
         </member>
         <member name="M:Org.BouncyCastle.Math.EC.Abc.Tnaf.MultiplyFromTnaf(Org.BouncyCastle.Math.EC.AbstractF2mPoint,Org.BouncyCastle.Math.EC.AbstractF2mPoint,System.SByte[])">
-            Multiplies a {@link org.bouncycastle.math.ec.AbstractF2mPoint AbstractF2mPoint}
+            Multiplies a {@link Org.BouncyCastle.Math.EC.AbstractF2mPoint AbstractF2mPoint}
             by an element <code>&#955;</code> of <code><b>Z</b>[&#964;]</code>
             using the <code>&#964;</code>-adic NAF (TNAF) method, given the TNAF
             of <code>&#955;</code>.
@@ -21213,7 +21307,7 @@
             <code>&#964;</code>-adic Non-Adjacent Form) algorithm.
         </member>
         <member name="M:Org.BouncyCastle.Math.EC.Multiplier.WTauNafMultiplier.MultiplyPositive(Org.BouncyCastle.Math.EC.ECPoint,Org.BouncyCastle.Math.BigInteger)">
-            Multiplies a {@link org.bouncycastle.math.ec.AbstractF2mPoint AbstractF2mPoint}
+            Multiplies a {@link Org.BouncyCastle.Math.EC.AbstractF2mPoint AbstractF2mPoint}
             by <code>k</code> using the reduced <code>&#964;</code>-adic NAF (RTNAF)
             method.
             @param p The AbstractF2mPoint to multiply.
@@ -21221,7 +21315,7 @@
             @return <code>p</code> multiplied by <code>k</code>.
         </member>
         <member name="M:Org.BouncyCastle.Math.EC.Multiplier.WTauNafMultiplier.MultiplyWTnaf(Org.BouncyCastle.Math.EC.AbstractF2mPoint,Org.BouncyCastle.Math.EC.Abc.ZTauElement,System.SByte,System.SByte)">
-            Multiplies a {@link org.bouncycastle.math.ec.AbstractF2mPoint AbstractF2mPoint}
+            Multiplies a {@link Org.BouncyCastle.Math.EC.AbstractF2mPoint AbstractF2mPoint}
             by an element <code>&#955;</code> of <code><b>Z</b>[&#964;]</code> using
             the <code>&#964;</code>-adic NAF (TNAF) method.
             @param p The AbstractF2mPoint to multiply.
@@ -21231,7 +21325,7 @@
             @return <code>p</code> multiplied by <code>&#955;</code>.
         </member>
         <member name="M:Org.BouncyCastle.Math.EC.Multiplier.WTauNafMultiplier.MultiplyFromWTnaf(Org.BouncyCastle.Math.EC.AbstractF2mPoint,System.SByte[])">
-            Multiplies a {@link org.bouncycastle.math.ec.AbstractF2mPoint AbstractF2mPoint}
+            Multiplies a {@link Org.BouncyCastle.Math.EC.AbstractF2mPoint AbstractF2mPoint}
             by an element <code>&#955;</code> of <code><b>Z</b>[&#964;]</code>
             using the window <code>&#964;</code>-adic NAF (TNAF) method, given the
             WTNAF of <code>&#955;</code>.
@@ -21246,7 +21340,7 @@
         <member name="F:Org.BouncyCastle.Math.EC.Multiplier.WTauNafPreCompInfo.m_preComp">
             Array holding the precomputed <code>AbstractF2mPoint</code>s used for the
             WTNAF multiplication in <code>
-            {@link org.bouncycastle.math.ec.multiplier.WTauNafMultiplier.multiply()
+            {@link Org.BouncyCastle.Math.EC.multiplier.WTauNafMultiplier.multiply()
             WTauNafMultiplier.multiply()}</code>.
         </member>
         <member name="T:Org.BouncyCastle.Math.EC.Rfc8032.Ed25519">
@@ -22047,7 +22141,7 @@
         <member name="T:Org.BouncyCastle.Pkix.PkixAttrCertPathValidator">
             CertPathValidatorSpi implementation for X.509 Attribute Certificates la RFC 3281.
             
-            @see org.bouncycastle.x509.ExtendedPkixParameters
+            @see Org.BouncyCastle.X509.ExtendedPkixParameters
         </member>
         <member name="M:Org.BouncyCastle.Pkix.PkixAttrCertPathValidator.Validate(Org.BouncyCastle.Pkix.PkixCertPath,Org.BouncyCastle.Pkix.PkixParameters)">
             Validates an attribute certificate with the given certificate path.
@@ -22111,7 +22205,7 @@
             <code>PKIXBuilderParameters</code>.
             
             @param params Parameters to set.
-            @see org.bouncycastle.x509.ExtendedPKIXParameters#setParams(java.security.cert.PKIXParameters)
+            @see Org.BouncyCastle.X509.ExtendedPKIXParameters#setParams(java.security.cert.PKIXParameters)
         </member>
         <member name="M:Org.BouncyCastle.Pkix.PkixBuilderParameters.Clone">
              Makes a copy of this <code>PKIXParameters</code> object. Changes to the
@@ -22479,7 +22573,7 @@
             
              @param dp The distribution point for which the complete CRL
              @param cert The <code>X509Certificate</code> or
-                        {@link org.bouncycastle.x509.X509AttributeCertificate} for
+                        {@link Org.BouncyCastle.X509.X509AttributeCertificate} for
                         which the CRL should be searched.
              @param currentDate The date for which the delta CRLs must be valid.
              @param paramsPKIX The extended PKIX parameters.
@@ -22510,7 +22604,7 @@
              @exception Exception
                             if an error occurs.
         </member>
-        <member name="M:Org.BouncyCastle.Pkix.PkixCrlUtilities.FindCrls(Org.BouncyCastle.Utilities.Collections.ISelector{Org.BouncyCastle.X509.X509Crl},System.Collections.Generic.IEnumerable{Org.BouncyCastle.Utilities.Collections.IStore{Org.BouncyCastle.X509.X509Crl}})">
+        <member name="M:Org.BouncyCastle.Pkix.PkixCrlUtilities.ImplFindCrls(Org.BouncyCastle.Utilities.Collections.ISelector{Org.BouncyCastle.X509.X509Crl},System.Collections.Generic.IEnumerable{Org.BouncyCastle.Utilities.Collections.IStore{Org.BouncyCastle.X509.X509Crl}})">
             <summary>
             crl checking
             Return a Collection of all CRLs found in the X509Store's that are
@@ -22518,7 +22612,7 @@
             </summary>
             <param name="crlSelector">a {@link X509CRLStoreSelector} object that will be used
             to select the CRLs</param>
-            <param name="crlStores">a List containing only {@link org.bouncycastle.x509.X509Store
+            <param name="crlStores">a List containing only {@link Org.BouncyCastle.X509.X509Store
             X509Store} objects. These are used to search for CRLs</param>
             <returns>a Collection of all found {@link X509CRL X509CRL} objects. May be
             empty but never <code>null</code>.
@@ -23125,7 +23219,7 @@
         <member name="M:Org.BouncyCastle.Pkix.Rfc3280CertPathUtilities.PrepareNextCertA(Org.BouncyCastle.Pkix.PkixCertPath,System.Int32)">
             <exception cref="T:Org.BouncyCastle.Pkix.PkixCertPathValidatorException"/>
         </member>
-        <member name="M:Org.BouncyCastle.Pkix.Rfc3280CertPathUtilities.ProcessCertD(Org.BouncyCastle.Pkix.PkixCertPath,System.Int32,System.Collections.Generic.HashSet{System.String},Org.BouncyCastle.Pkix.PkixPolicyNode,System.Collections.Generic.IList{Org.BouncyCastle.Pkix.PkixPolicyNode}[],System.Int32)">
+        <member name="M:Org.BouncyCastle.Pkix.Rfc3280CertPathUtilities.ProcessCertD(Org.BouncyCastle.Pkix.PkixCertPath,System.Int32,System.Collections.Generic.HashSet{System.String},Org.BouncyCastle.Pkix.PkixPolicyNode,System.Collections.Generic.List{Org.BouncyCastle.Pkix.PkixPolicyNode}[],System.Int32)">
             <exception cref="T:Org.BouncyCastle.Pkix.PkixCertPathValidatorException"/>
         </member>
         <member name="M:Org.BouncyCastle.Pkix.Rfc3280CertPathUtilities.ProcessCrlB1(Org.BouncyCastle.Asn1.X509.DistributionPoint,System.Object,Org.BouncyCastle.X509.X509Crl)">
@@ -23192,7 +23286,7 @@
              @throws AnnotatedException if the certificate is revoked or the status cannot be checked
                                         or some error occurs.
         </member>
-        <member name="M:Org.BouncyCastle.Pkix.Rfc3280CertPathUtilities.PrepareCertB(Org.BouncyCastle.Pkix.PkixCertPath,System.Int32,System.Collections.Generic.IList{Org.BouncyCastle.Pkix.PkixPolicyNode}[],Org.BouncyCastle.Pkix.PkixPolicyNode,System.Int32)">
+        <member name="M:Org.BouncyCastle.Pkix.Rfc3280CertPathUtilities.PrepareCertB(Org.BouncyCastle.Pkix.PkixCertPath,System.Int32,System.Collections.Generic.List{Org.BouncyCastle.Pkix.PkixPolicyNode}[],Org.BouncyCastle.Pkix.PkixPolicyNode,System.Int32)">
             <exception cref="T:Org.BouncyCastle.Pkix.PkixCertPathValidatorException"/>
         </member>
         <member name="M:Org.BouncyCastle.Pkix.Rfc3280CertPathUtilities.PrepareNextCertI2(Org.BouncyCastle.Pkix.PkixCertPath,System.Int32,System.Int32)">
@@ -23413,7 +23507,7 @@
             Returns the public key of the most-trusted CA.
             </summary>
         </member>
-        <member name="M:Org.BouncyCastle.Pkix.TrustAnchor.setNameConstraints(System.Byte[])">
+        <member name="M:Org.BouncyCastle.Pkix.TrustAnchor.SetNameConstraints(System.Byte[])">
             <summary>
             Decode the name constraints and clone them if not null.
             </summary>
@@ -23561,7 +23655,7 @@
             
             
         </member>
-        <member name="M:Org.BouncyCastle.Pqc.Crypto.Hqc.HqcEngine.Encaps(System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+        <member name="M:Org.BouncyCastle.Pqc.Crypto.Hqc.HqcEngine.Encaps(System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
              HQC Encapsulation
              - Input: pk, seed
              - Output: c = (u,v,d), K
@@ -23582,6 +23676,7 @@
              @param ss session key
              @param ct ciphertext
              @param sk secret key
+             @return 0 if decapsulation is successful, -1 otherwise
             
         </member>
         <member name="M:Org.BouncyCastle.Pqc.Crypto.Hqc.HqcEngine.Encrypt(System.Byte[],System.Int64[],System.Int64[],System.Byte[],System.Byte[],System.Byte[])">
@@ -25012,6 +25107,9 @@
         <member name="M:Org.BouncyCastle.Tls.Crypto.Impl.BC.BcTlsRawKeyCertificate.GetPubKeyEd448">
             <exception cref="T:System.IO.IOException"/>
         </member>
+        <member name="M:Org.BouncyCastle.Tls.Crypto.Impl.BC.BcTlsRawKeyCertificate.GetPubKeyMLDsa">
+            <exception cref="T:System.IO.IOException"/>
+        </member>
         <member name="M:Org.BouncyCastle.Tls.Crypto.Impl.BC.BcTlsRawKeyCertificate.GetPubKeyRsa">
             <exception cref="T:System.IO.IOException"/>
         </member>
@@ -25031,6 +25129,9 @@
             <exception cref="T:System.IO.IOException"/>
         </member>
         <member name="M:Org.BouncyCastle.Tls.Crypto.Impl.BC.BcTlsRawKeyCertificate.ValidateKeyUsage(System.Int32)">
+            <exception cref="T:System.IO.IOException"/>
+        </member>
+        <member name="M:Org.BouncyCastle.Tls.Crypto.Impl.BC.BcTlsRawKeyCertificate.ValidateMLDsa(Org.BouncyCastle.Asn1.DerObjectIdentifier)">
             <exception cref="T:System.IO.IOException"/>
         </member>
         <member name="M:Org.BouncyCastle.Tls.Crypto.Impl.BC.BcTlsRawKeyCertificate.ValidateRsa_Pkcs1">
@@ -29186,12 +29287,6 @@
         <member name="T:Org.BouncyCastle.X509.Extension.AuthorityKeyIdentifierStructure">
             <remarks>A high level authority key identifier.</remarks>
         </member>
-        <member name="M:Org.BouncyCastle.X509.Extension.AuthorityKeyIdentifierStructure.#ctor(Org.BouncyCastle.Asn1.Asn1OctetString)">
-             Constructor which will take the byte[] returned from getExtensionValue()
-            
-             @param encodedValue a DER octet encoded string with the extension structure in it.
-             @throws IOException on parsing errors.
-        </member>
         <member name="M:Org.BouncyCastle.X509.Extension.AuthorityKeyIdentifierStructure.#ctor(Org.BouncyCastle.X509.X509Certificate)">
              Create an AuthorityKeyIdentifier using the passed in certificate's public
              key, issuer and serial number.
@@ -29208,12 +29303,6 @@
         </member>
         <member name="T:Org.BouncyCastle.X509.Extension.SubjectKeyIdentifierStructure">
             A high level subject key identifier.
-        </member>
-        <member name="M:Org.BouncyCastle.X509.Extension.SubjectKeyIdentifierStructure.#ctor(Org.BouncyCastle.Asn1.Asn1OctetString)">
-             Constructor which will take the byte[] returned from getExtensionValue()
-            
-             @param encodedValue a DER octet encoded string with the extension structure in it.
-             @throws IOException on parsing errors.
         </member>
         <member name="M:Org.BouncyCastle.X509.Extension.X509ExtensionUtilities.FromExtensionValue(Org.BouncyCastle.X509.IX509Extension,Org.BouncyCastle.Asn1.DerObjectIdentifier)">
             <summary>
@@ -29258,8 +29347,8 @@
              This class is an <code>Selector</code> like implementation to select
              attribute certificates from a given set of criteria.
             
-             @see org.bouncycastle.x509.X509AttributeCertificate
-             @see org.bouncycastle.x509.X509Store
+             @see Org.BouncyCastle.X509.X509AttributeCertificate
+             @see Org.BouncyCastle.X509.X509Store
         </member>
         <member name="M:Org.BouncyCastle.X509.Store.X509AttrCertStoreSelector.Match(Org.BouncyCastle.X509.X509V2AttributeCertificate)">
             <summary>
@@ -29416,11 +29505,6 @@
             <remarks>
             A DER encoding of an ASN.1 AuthorityKeyIdentifier value.
             </remarks>
-        </member>
-        <member name="P:Org.BouncyCastle.X509.Store.X509CertStoreSelector.Policy">
-            <summary>
-            An <code>ISet</code> of <code>DerObjectIdentifier</code> objects.
-            </summary>
         </member>
         <member name="P:Org.BouncyCastle.X509.Store.X509CertStoreSelector.SubjectKeyIdentifier">
             <remarks>

@@ -1,0 +1,41 @@
+﻿@model WEB_Proje.web.Models.Product.ProductModel
+
+@{
+    ViewBag.Title = "Add Product";
+    Layout = null;
+}
+
+<h2>Add Product</h2>
+
+@using(Html.BeginForm("AddProduct", "Home", FormMethod.Post)) {
+    <div>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Cantitate)
+        @Html.TextBoxFor(m => m.Cantitate)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.IsOnSale)
+        @Html.CheckBoxFor(m => m.IsOnSale)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Price)
+        @Html.TextBoxFor(m => m.Price)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.NewPrice)
+        @Html.TextBoxFor(m => m.NewPrice)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.ImagePath)
+        @Html.TextBoxFor(m => m.ImagePath)
+    </div>
+
+    <button type="submit">[Add Product]</button>
+}

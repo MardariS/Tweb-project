@@ -33,23 +33,22 @@
     <div class="login-container">
         <h2>Logen</h2>
         <!-- introducerea login si password -->
-        <form action="@Url.Action("Login", "Login")">
-            <input type="text" name="username" placeholder="Logen" required>
-            <input type="password" name="password" placeholder="Posword" required>
-
+        @using(Html.BeginForm("Login", "Login", FormMethod.Post)) {
+            <input type="text" name="Username" placeholder="Logen" required />
+            <input type="password" name="Password" placeholder="Posword" required />
             <button type="submit">Submit</button>
-        </form>
 
-        <!-- La autorizatie -->
+        }
+
+        <!-- La registrare -->
         <form action="@Url.Action("Register", "Login")" method="get">
             <button type="submit">Registrare</button>
         </form>
 
 
-        <!-- Inapoi -->
+        <!-- Inapoi (Home) -->
         <form action="@Url.Action("Index", "Home")" method="get">
             <button type="submit">Back</button>
-        </form>
         </form>
     </div>
 </body>

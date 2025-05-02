@@ -95,3 +95,9 @@ D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.BussinesLogic.dll
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.Domain.dll
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.BussinesLogic.pdb
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.Domain.pdb
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\EntityFramework.dll
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.BussinesLogic.dll.config
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.Domain.dll.config
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\EntityFramework.xml
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\EntityFramework.SqlServer.dll
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\EntityFramework.SqlServer.xml
