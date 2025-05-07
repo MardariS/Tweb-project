@@ -17188,7 +17188,30 @@
             * ** 
              </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Mysqlx.Expr.ColumnIdentifier" -->
+        <member name="T:Mysqlx.Expr.ColumnIdentifier">
+             <summary>
+            *
+            Column identifier
+            
+            for table: col\@doc_path, tbl.col\@doc_path col, tbl.col, schema.tbl.col
+            for document collection: doc_path
+            &#x2F;/
+            @par production list
+            @code{unparsed}
+            col_identifier: string "." string "." string |
+            : string "." string |
+            : string |
+            : string "." string "." string "@" document_path |
+            : string "." string "@" document_path |
+            : string "@" document_path |
+            : document_path
+            document_path: member | arrayLocation | doubleAsterisk
+            member = "." string | "." "*"
+            arrayLocation = "[" index "]" | "[" "*" "]"
+            doubleAsterisk = "**"
+            @endcode
+             </summary>
+        </member>
         <member name="F:Mysqlx.Expr.ColumnIdentifier.DocumentPathFieldNumber">
             <summary>Field number for the "document_path" field.</summary>
         </member>

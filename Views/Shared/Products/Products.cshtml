@@ -18,9 +18,11 @@
                         foreach(var product in Model.Where(p => !p.IsOnSale)) {
                             <div class="swiper-slide">
                                 <div class="product-card position-relative">
-                                    <div class="image-holder">
-                                        <img src="@Url.Content($"~/Content/Style/images/product-item{product.Id}.jpg")" alt="@product.Name" class="img-fluid" />
-                                    </div>
+                                    @if(!string.IsNullOrEmpty(product.ImageFileName)) {
+                                        <img src="@Url.Content(product.ImagePath)" alt="@product.Name" class="img-fluid" />
+                                    } else {
+                                        <img src="@Url.Content("~/Content/Style/images/no-image.jpg")" alt="No Image" class="img-fluid" />
+                                    }
 
                                     <div class="delete-concern position-absolute" style="top: 10px; right: 10px;">
                                         @using(Html.BeginForm("DeleteProduct", "Home", new { id = product.Id }, FormMethod.Post)) {
@@ -35,14 +37,21 @@
                                         }
                                     </div>
 
-                                    <div class="cart-concern position-absolute">
-                                        <div class="cart-button d-flex">
-                                            <a href="#" class="btn btn-medium btn-black">
-                                                Add to Cart
-                                                <svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg>
-                                            </a>
+                                    @using(Html.BeginForm("AddToCart", "Cart", FormMethod.Post)) {
+                                        @Html.Hidden("productId", product.Id)
+                                        <div class="cart-concern position-absolute">
+                                            <div class="cart-button d-flex">
+                                                <button type="submit" class="btn btn-medium btn-black">
+                                                    Add to Cart
+                                                    <svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+
+
+
+
                                     <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                         <h3 class="card-title text-uppercase">
                                             <a href="#">@product.Name</a>

@@ -743,11 +743,11 @@
         <member name="M:Org.BouncyCastle.Asn1.Cmp.CmpCertificate.ToAsn1Object">
              <pre>
              CMPCertificate ::= CHOICE {
-                        x509v3PKCert        Certificate
-                        x509v2AttrCert      [1] AttributeCertificate
+                        x509v3PKCert    Certificate
+                        otherCert      [tag] EXPLICIT ANY DEFINED BY tag
               }
              </pre>
-             Note: the addition of attribute certificates is a BC extension.
+             Note: the addition of the explicit tagging is a BC extension. We apologise for the warped syntax, but hopefully you get the idea.
             
              @return a basic ASN.1 object representation.
         </member>
@@ -1779,6 +1779,18 @@
                 recipientInfos RecipientInfos,
                 encryptedContentInfo EncryptedContentInfo,
                 unprotectedAttrs [1] IMPLICIT UnprotectedAttributes OPTIONAL
+            }
+            </pre>
+        </member>
+        <member name="T:Org.BouncyCastle.Asn1.Cms.Evidence">
+            <a href="https://tools.ietf.org/html/rfc5544">RFC 5544</a>:
+            Binding Documents with Time-Stamps; Evidence object.
+            <p/>
+            <pre>
+            Evidence ::= CHOICE {
+                tstEvidence    [0] TimeStampTokenEvidence,   -- see RFC 3161
+                ersEvidence    [1] EvidenceRecord,           -- see RFC 4998
+                otherEvidence  [2] OtherEvidence
             }
             </pre>
         </member>
@@ -4811,13 +4823,15 @@
             create a CertStatus object with a tag of zero.
         </member>
         <member name="M:Org.BouncyCastle.Asn1.Ocsp.CertStatus.ToAsn1Object">
-            Produce an object suitable for an Asn1OutputStream.
-            <pre>
-             CertStatus ::= CHOICE {
-                             good        [0]     IMPLICIT Null,
-                             revoked     [1]     IMPLICIT RevokedInfo,
-                             unknown     [2]     IMPLICIT UnknownInfo }
-            </pre>
+             Produce an object suitable for an Asn1OutputStream.
+             <pre>
+              CertStatus ::= CHOICE {
+                              good        [0]     IMPLICIT Null,
+                              revoked     [1]     IMPLICIT RevokedInfo,
+                              unknown     [2]     IMPLICIT UnknownInfo }
+            
+             UnknownInfo ::= NULL
+             </pre>
         </member>
         <member name="M:Org.BouncyCastle.Asn1.Ocsp.CrlID.ToAsn1Object">
             Produce an object suitable for an Asn1OutputStream.
@@ -6298,6 +6312,13 @@
                 fullName                 [0] GeneralNames,
                 nameRelativeToCRLIssuer  [1] RDN
             }
+            </pre>
+        </member>
+        <member name="T:Org.BouncyCastle.Asn1.X509.EdiPartyName">
+            <pre>
+            EDIPartyName ::= Sequence {
+                 nameAssigner            [0]     DirectoryString OPTIONAL,
+                 partyName               [1]     DirectoryString }
             </pre>
         </member>
         <member name="T:Org.BouncyCastle.Asn1.X509.ExtendedKeyUsage">
@@ -8384,8 +8405,7 @@
             </pre>
         </member>
         <member name="T:Org.BouncyCastle.Asn1.X9.X9Curve">
-            ASN.1 def for Elliptic-Curve Curve structure. See
-            X9.62, for further details.
+            ASN.1 def for Elliptic-Curve Curve structure. See X9.62 for further details.
         </member>
         <member name="M:Org.BouncyCastle.Asn1.X9.X9Curve.ToAsn1Object">
             Produce an object suitable for an Asn1OutputStream.
@@ -8398,8 +8418,7 @@
             </pre>
         </member>
         <member name="T:Org.BouncyCastle.Asn1.X9.X9ECParameters">
-            ASN.1 def for Elliptic-Curve ECParameters structure. See
-            X9.62, for further details.
+            ASN.1 definition for Elliptic-Curve ECParameters structure. See X9.62 for further details.
         </member>
         <member name="P:Org.BouncyCastle.Asn1.X9.X9ECParameters.CurveEntry">
              Return the ASN.1 entry representing the Curve.
@@ -8461,8 +8480,7 @@
             </p>
         </member>
         <member name="T:Org.BouncyCastle.Asn1.X9.X9FieldID">
-            ASN.1 def for Elliptic-Curve Field ID structure. See
-            X9.62, for further details.
+            ASN.1 def for Elliptic-Curve Field ID structure. See X9.62 for further details.
         </member>
         <member name="M:Org.BouncyCastle.Asn1.X9.X9FieldID.#ctor(Org.BouncyCastle.Math.BigInteger)">
             Constructor for elliptic curves over prime fields
@@ -20416,7 +20434,7 @@
              @return A cipher parameters instance.
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Utilities.OpenSshPrivateKeyUtilities.AllIntegers(Org.BouncyCastle.Asn1.Asn1Sequence)">
-             allIntegers returns true if the sequence holds only DerInteger types.
+             AllIntegers returns true if the sequence holds only DerInteger types.
             
         </member>
         <member name="M:Org.BouncyCastle.Crypto.Utilities.OpenSshPublicKeyUtilities.ParsePublicKey(System.Byte[])">
@@ -28408,13 +28426,13 @@
             Base class for an RFC 3161 Time Stamp Request.
         </member>
         <member name="M:Org.BouncyCastle.Tsp.TimeStampRequest.#ctor(System.Byte[])">
-             Create a TimeStampRequest from the past in byte array.
+             Create a TimeStampRequest from the passed-in byte array.
             
              @param req byte array containing the request.
              @throws IOException if the request is malformed.
         </member>
         <member name="M:Org.BouncyCastle.Tsp.TimeStampRequest.#ctor(System.IO.Stream)">
-             Create a TimeStampRequest from the past in input stream.
+             Create a TimeStampRequest from the passed-in input stream.
             
              @param in input stream containing the request.
              @throws IOException if the request is malformed.
@@ -28538,9 +28556,6 @@
         <member name="M:Org.BouncyCastle.Tsp.TimeStampTokenGenerator.#ctor(Org.BouncyCastle.Crypto.AsymmetricKeyParameter,Org.BouncyCastle.X509.X509Certificate,System.String,System.String,Org.BouncyCastle.Asn1.Cms.AttributeTable,Org.BouncyCastle.Asn1.Cms.AttributeTable)">
             create with a signer with extra signed/unsigned attributes.
         </member>
-        <member name="P:Org.BouncyCastle.Tsp.TimeStampTokenInfo.Nonce">
-            @return the nonce value, null if there isn't one.
-        </member>
         <member name="T:Org.BouncyCastle.Tsp.TspAlgorithms">
             Recognised hash algorithms for the time stamp protocol.
         </member>
@@ -28560,12 +28575,6 @@
             
              @param cert the certificate of interest.
              @throws TspValidationException if the certicate fails on one of the check points.
-        </member>
-        <member name="M:Org.BouncyCastle.Tsp.TspUtil.GetDigestAlgName(System.String)">
-            <summary>
-            Return the digest algorithm using one of the standard JCA string
-            representations rather than the algorithm identifier (if possible).
-            </summary>
         </member>
         <member name="T:Org.BouncyCastle.Tsp.TspValidationException">
             Exception thrown if a TSP request or response fails to validate.

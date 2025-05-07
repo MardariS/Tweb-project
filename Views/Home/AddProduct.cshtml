@@ -1,16 +1,21 @@
 ﻿@model WEB_Proje.web.Models.Product.ProductModel
+@using System.Web.Optimization
+
 
 @{
     ViewBag.Title = "Add Product";
-    Layout = null; // Лучше использовать Layout, если он у вас есть
+    Layout = null;
 }
 
 <!DOCTYPE html>
 <html>
 <head>
+    @Styles.Render("~/bundles/css")
+
     <title>@ViewBag.Title</title>
     <style>
         .form-container {
+            max-height: 2000px;
             max-width: 600px;
             margin: 20px auto;
             padding: 20px;
@@ -34,7 +39,7 @@
         }
 
         .btn-submit {
-            background-color: #4CAF50;
+            background-color: grey;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -45,45 +50,82 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Add Product</h2>
+        <h2>Adaugare produs</h2>
 
-        @using(Html.BeginForm("AddProduct", "Home", FormMethod.Post)) {
+        @using(Html.BeginForm("AddProduct", "Home", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Поле Name -->
             <div class="form-group">
                 @Html.LabelFor(m => m.Name)
-                @Html.TextBoxFor(m => m.Name, new { placeholder = "Product name" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Nume produs" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
             </div>
 
+            <!-- Поле Description -->
             <div class="form-group">
                 @Html.LabelFor(m => m.Description)
-                @Html.TextAreaFor(m => m.Description, new { placeholder = "Product description", rows = 4 })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Descriere produs", rows = 4 })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
             </div>
 
+            <!-- Поле Cantitate -->
             <div class="form-group">
                 @Html.LabelFor(m => m.Cantitate)
-                @Html.TextBoxFor(m => m.Cantitate, new { type = "number", placeholder = "Quantity" })
+                @Html.TextBoxFor(m => m.Cantitate, new { @class = "form-control", type = "number", placeholder = "Cantitate", min = "1" })
+                @Html.ValidationMessageFor(m => m.Cantitate, "", new { @class = "text-danger" })
             </div>
 
+            <!-- Поле Price -->
             <div class="form-group">
                 @Html.LabelFor(m => m.Price)
-                @Html.TextBoxFor(m => m.Price, new { placeholder = "Price in $", type = "number", step = "0.01" })
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control", type = "number", step = "0.01", placeholder = "Preț", min = "0.01" })
+                @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
             </div>
 
+            <!-- Поле ImagePath -->
             <div class="form-group">
-                @Html.LabelFor(m => m.IsOnSale)
-                @Html.CheckBoxFor(m => m.IsOnSale)
+                @Html.LabelFor(m => m.ImagePath)
+                @Html.TextBoxFor(m => m.ImagePath, new { @class = "form-control", placeholder = "Cale imagine (ex: ~/Images/produs.jpg)" })
+                <small class="form-text text-muted">Lăsați gol dacă nu aveți imagine</small>
             </div>
 
+            <!-- Поле IsOnSale -->
+            <div class="form-group">
+                <label>
+                    @Html.CheckBoxFor(m => m.IsOnSale) Produs la reducere?
+                </label>
+            </div>
+
+            <!-- Поле NewPrice (появляется только при IsOnSale) -->
             <div class="form-group" id="newPriceGroup" style="display: none;">
                 @Html.LabelFor(m => m.NewPrice)
-                @Html.TextBoxFor(m => m.NewPrice, new { placeholder = "Sale price in $", type = "number", step = "0.01" })
+                @Html.TextBoxFor(m => m.NewPrice, new { @class = "form-control", type = "number", step = "0.01", placeholder = "Preț reducere", min = "0.01" })
+                @Html.ValidationMessageFor(m => m.NewPrice, "", new { @class = "text-danger" })
             </div>
 
-            <button type="submit" class="btn-submit">Add Product</button>
+            <button type="submit" class="btn btn-primary">Adaugă produs</button>
+        }
+
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('#IsOnSale').change(function () {
+                        if (this.checked) {
+                            $('#newPriceGroup').show();
+                        } else {
+                            $('#newPriceGroup').hide();
+                            $('#NewPrice').val('');
+                        }
+                    });
+                });
+            </script>
         }
     </div>
 
     <script>
-        document.getElementById('IsOnSale').addEventListener('change', function() {
+        document.getElementById('IsOnSale').addEventListener('change', function () {
             var newPriceGroup = document.getElementById('newPriceGroup');
             if (this.checked) {
                 newPriceGroup.style.display = 'block';

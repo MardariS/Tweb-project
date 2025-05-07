@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using WEB_Proje.web.Models.Product;
 using WEB_Proje.BussinesLogic.DBModel;
 using WEB_Proje.Domain.Entities;
+using System.IO;
 using System.Data.Entity.Validation;
 
 namespace WEB_Proje.web.Controllers {
@@ -16,37 +17,63 @@ namespace WEB_Proje.web.Controllers {
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddProduct(ProductModel model) {
             try {
-                if(ModelState.IsValid) {
-                    if(!decimal.TryParse(model.Price, out decimal price)) {
-                        ModelState.AddModelError("Price", "Некорректная цена");
+                // Базовая валидация
+                if(!ModelState.IsValid) {
+                    return View(model);
+                }
+
+                // Проверка числовых полей
+                if(!int.TryParse(model.Cantitate, out int cantitate) || cantitate <= 0) {
+                    ModelState.AddModelError("Cantitate", "Cantitate invalidă (trebuie să fie număr pozitiv)");
+                    return View(model);
+                }
+
+                if(!decimal.TryParse(model.Price, out decimal price) || price <= 0) {
+                    ModelState.AddModelError("Price", "Preț invalid (trebuie să fie număr pozitiv)");
+                    return View(model);
+                }
+
+                // Обработка цены со скидкой
+                decimal? newPrice = null;
+                if(model.IsOnSale) {
+                    if(string.IsNullOrEmpty(model.NewPrice) || !decimal.TryParse(model.NewPrice, out decimal parsedNewPrice) || parsedNewPrice <= 0) {
+                        ModelState.AddModelError("NewPrice", "Preț reducere invalid");
                         return View(model);
                     }
-
-                    decimal? newPrice = null;
-                    if(model.IsOnSale) {
-                        if(string.IsNullOrEmpty(model.NewPrice) || !decimal.TryParse(model.NewPrice, out decimal parsedNewPrice)) {
-                            ModelState.AddModelError("NewPrice", "Укажите корректную цену со скидкой");
-                            return View(model);
-                        }
-                        newPrice = parsedNewPrice;
-                    }
-
-                    var entity = new UDdProducts {
-                        Name = model.Name,
-                        Description = model.Description,
-                        Cantitate = int.Parse(model.Cantitate),
-                        Price = price,
-                        NewPrice = newPrice,
-                        IsOnSale = model.IsOnSale
-                    };
-
-                    db.Products.Add(entity);
-                    db.SaveChanges();
-
-                    return RedirectToAction("Index");
+                    newPrice = parsedNewPrice;
                 }
+
+                // Обработка изображения
+                string imageFileName = null;
+                if(!string.IsNullOrEmpty(model.ImagePath)) {
+                    // Проверяем существует ли файл
+                    var serverPath = Server.MapPath(model.ImagePath);
+                    if(!System.IO.File.Exists(serverPath)) {
+                        ModelState.AddModelError("ImagePath", "Fișierul nu există la calea specificată");
+                        return View(model);
+                    }
+                    imageFileName = Path.GetFileName(model.ImagePath);
+                }
+
+                // Создание и сохранение продукта
+                var product = new UDdProducts {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Cantitate = cantitate,
+                    Price = price,
+                    NewPrice = newPrice,
+                    IsOnSale = model.IsOnSale,
+                    ImagePath = model.ImagePath,
+                    ImageFileName = imageFileName
+                };
+
+                db.Products.Add(product);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
             catch(DbEntityValidationException ex) {
                 foreach(var validationErrors in ex.EntityValidationErrors) {
@@ -54,12 +81,12 @@ namespace WEB_Proje.web.Controllers {
                         ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
                     }
                 }
+                return View(model);
             }
             catch(Exception ex) {
-                ModelState.AddModelError("", "Произошла ошибка: " + ex.Message);
+                var message = ex.InnerException?.InnerException?.Message ?? ex.Message;
+                throw new Exception("Ошибка при сохранении: " + message);
             }
-
-            return View(model);
         }
 
 
@@ -73,14 +100,12 @@ namespace WEB_Proje.web.Controllers {
                 Cantitate = p.Cantitate.ToString(),
                 Price = p.Price.ToString("0.##"),
                 NewPrice = p.NewPrice?.ToString("0.##"),
-                IsOnSale = p.IsOnSale && p.NewPrice.HasValue, 
-                ImagePath = $"/Content/Images/{p.Id}.jpg"
+                IsOnSale = p.IsOnSale,
+                ImagePath = p.ImagePath,
+                ImageFileName = p.ImageFileName
             }).ToList();
 
-            ViewBag.SaleProducts = viewModels.Where(p => p.IsOnSale).ToList();
-            ViewBag.NormalProducts = viewModels.Where(p => !p.IsOnSale).ToList();
-
-            return View(viewModels);
+            return View(viewModels); 
         }
 
 

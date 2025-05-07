@@ -11,7 +11,6 @@ using WEB_Proje.BussinesLogic.BlStructure;
 
 namespace WEB_Proje.web.Controllers{
     public class LoginController : Controller{
-
         // Interfata logarii
         private readonly IUserLoginInterface userLoginInterface;
 
