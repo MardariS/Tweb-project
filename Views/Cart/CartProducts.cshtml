@@ -1,4 +1,6 @@
 ﻿@model WEB_Proje.web.Models.Product.ShopStuff
+@using System.Web.Optimization
+
 
 
 
@@ -13,39 +15,57 @@
 
 <html>
 <head>
-<style>
-    .form-container {
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
 
-    .form-group {
-        margin-bottom: 15px;
-    }
+        h2 {
+            text-align: center;
+            color: #555;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 5px;
-    }
+        .table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    input[type="text"], input[type="number"], textarea {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-    }
+            .table th, .table td {
+                padding: 12px 15px;
+                border-bottom: 1px solid #ddd;
+                text-align: center;
+            }
 
-    .btn-submit {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-</style>
+            .table th {
+                background-color: #e0e0e0;
+                color: #444;
+                font-weight: 600;
+            }
+
+            .table tfoot td {
+                font-weight: bold;
+                background-color: #f2f2f2;
+            }
+
+        img {
+            border-radius: 5px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+
+
 
 </head>
 <body>
@@ -65,19 +85,20 @@
                 @foreach(var item in Model.Items) {
                     <tr>
                         <td>
-                            <img src="@item.ImagePath" width="50" />
+                            <img src="~/Content/Style/images/product-item1.jpg" width="50" />
                             @item.ProductName
                         </td>
-                        <td>@item.Price.ToString("C")</td>
+                        <td>@item.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
                         <td>@item.Quantity</td>
-                        <td>@((item.Price * item.Quantity).ToString("C"))</td>
+                        <td>@((item.Price * item.Quantity).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US")))</td>
+
                     </tr>
                 }
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="3">Total:</td>
-                    <td>@Model.GetTotal().ToString("C")</td>
+                    <td>@Model.GetTotal().ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
                 </tr>
             </tfoot>
         </table>

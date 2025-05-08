@@ -1,12 +1,14 @@
 ﻿using System.Web.Mvc;
 using WEB_Proje.BussinesLogic.Interface.LoginInterface;
-using WEB_Proje.Domain.Entities.User;
 using WEB_Proje.web.Models.Login;
 using WEB_Proje.BussinesLogic.DBModel;
 using WEB_Proje.Domain.Entities;
 using WEB_Proje.Domain.Enums;
 using System.Linq;
 using WEB_Proje.BussinesLogic.BlStructure;
+using System.Web.Security;
+using System.Web;
+using System;
 
 
 namespace WEB_Proje.web.Controllers{
@@ -32,26 +34,54 @@ namespace WEB_Proje.web.Controllers{
 
         // POST: Logare
         [HttpPost]
-        public ActionResult Login(UserLoginModel user) {
-            var dd = new UserDateLogin() {
-                Password = user.Password,
-                Username = user.Username,
-            };
+        public ActionResult Login(string username, string password) {
+            var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+            if(user != null) {
+                string role = ((URole)user.userRole).ToString();
 
-            var userVar = userLoginInterface.ValidateAuth(dd);
+                var ticket = new FormsAuthenticationTicket(
+                    1,
+                    user.Username,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    role, 
+                    FormsAuthentication.FormsCookiePath
+                );
 
-            if(userVar == null) {
-                return View();
+                string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+
+                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                Response.Cookies.Add(cookie);
+
+                return RedirectToAction("Index", "Home");
             }
 
-            bool isAuth = userLoginInterface.IUserAuthorization(dd);
-
-            if(!isAuth) {
-                return RedirectToAction("Login", "Home");
-            }
-
-            return RedirectToAction("Index", "Home");
+            ViewBag.Error = "Login and password is incorect";
+            return View();
         }
+
+        //public ActionResult Login(UserLoginModel user) {
+        //    var dd = new UserDateLogin() {
+        //        Password = user.Password,
+        //        Username = user.Username,
+        //    };
+
+        //    var userVar = userLoginInterface.ValidateAuth(dd);
+
+        //    if(userVar == null) {
+        //        return View();
+        //    }
+
+        //    bool isAuth = userLoginInterface.IUserAuthorization(dd);
+
+        //    if(!isAuth) {
+        //        return RedirectToAction("Login", "Home");
+        //    }
+
+        //    return RedirectToAction("Index", "Home");
+        //}
+
 
         // GET: Registrare
         public ActionResult Register() {
@@ -83,6 +113,11 @@ namespace WEB_Proje.web.Controllers{
             }
 
             return View(user);
+        }
+
+        public ActionResult Logout() {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

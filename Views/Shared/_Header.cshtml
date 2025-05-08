@@ -32,10 +32,10 @@
                             <a class="nav-link me-4" href="#mobile-products">Produse</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-4" href="#smart-watches">Watches</a>
+                            <a class="nav-link me-4" href="#smart-watches">Reduceri</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-4" href="#yearly-sale">Reducere</a>
+                            <a class="nav-link me-4" href="#yearly-sale">Informatie sezoniera</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-4" href="#latest-blog">Blog</a>
@@ -44,46 +44,66 @@
                         <li class="nav-item">
                             <div class="user-items ps-5">
                                 <ul class="d-flex justify-content-end list-unstyled">
+
+                                    <!-- User Nikname -->
+                                    @if(User.IsInRole("User") || User.IsInRole("Admin")) {
+                                        <li class="pe-3">
+                                            <p>Hi, @User.Identity.Name</p>
+                                        </li>
+                                    } else {
+                                        <li class="pe-3">
+                                            <p>Guest</p>
+                                        </li>
+                                    }
+
                                     <!-- Adaugare produs -->
-                                    <li class="pe-3">
-                                        <a href="@Url.Action("AddProduct", "Home")">
-                                            <svg class="user">
-                                                <use xlink:href="#user"></use>
-                                            </svg>
-                                        </a>
-                                    </li>
-
-
-                                    <!-- Search -->
-                                    <li class="search-item pe-3">
-                                        <a href="#" class="search-button">
-                                            <svg class="search">
-                                                <use xlink:href="#search"></use>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <!-- Logare -->
-                                    <li class="pe-3">
-                                        <a href="@Url.Action("Login", "Login")">
-                                            <svg class="user">
-                                                <use xlink:href="#user"></use>
-                                            </svg>
-                                        </a>
-                                    </li>
+                                    @if(User.IsInRole("Admin")) {
+                                        <li class="pe-3">
+                                            <a href="@Url.Action("AddProduct", "Home")">
+                                                <svg class="user">
+                                                    <use xlink:href="#cart-outline"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    }
 
                                     <!-- Cosul -->
-                                    <li>
-                                        <a href="@Url.Action("CartProducts", "Cart")">
-                                            <svg class="cart">
-                                                <use xlink:href="#cart"></use>
-                                            </svg>
-                                            @if(Session["Cart"] != null) {
-                                                <span class="cart-count">
-                                                    @(((ShopStuff)Session["Cart"]).Items.Sum(i => i.Quantity))
-                                                </span>
-                                            }
-                                        </a>
-                                    </li>
+                                    @if(User.IsInRole("User") || User.IsInRole("Admin")) {
+                                        <li class="pe-3">
+                                            <a href="@Url.Action("CartProducts", "Cart")">
+                                                <svg class="cart">
+                                                    <use xlink:href="#cart"></use>
+                                                </svg>
+                                                @if(Session["Cart"] != null) {
+                                                    <span class="cart-count">
+                                                        @(((ShopStuff)Session["Cart"]).Items.Sum(i => i.Quantity))
+                                                    </span>
+                                                }
+                                            </a>
+                                        </li>
+                                    }
+
+                                    <!-- Logare -->
+                                  
+                                        <li class="pe-3">
+                                            <a href="@Url.Action("Login", "Login")">
+                                                <svg class="user">
+                                                    <use xlink:href="#user"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    
+
+                                    <!-- Logout -->
+                                    @if(User.IsInRole("User") || User.IsInRole("Admin")) {
+                                        <li class="pe-3">
+                                            <a href="@Url.Action("Logout", "Login")">
+                                                <svg class="user">
+                                                    <use xlink:href="#close"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </li>

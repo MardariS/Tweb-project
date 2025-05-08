@@ -12,20 +12,21 @@ namespace WEB_Proje.web.Controllers {
 
         readonly ProductContext db = new ProductContext();
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddProduct() {
             return View();
         }
 
+
+        // --- Adaugarea Produs ---
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddProduct(ProductModel model) {
             try {
-                // Базовая валидация
                 if(!ModelState.IsValid) {
                     return View(model);
                 }
 
-                // Проверка числовых полей
                 if(!int.TryParse(model.Cantitate, out int cantitate) || cantitate <= 0) {
                     ModelState.AddModelError("Cantitate", "Cantitate invalidă (trebuie să fie număr pozitiv)");
                     return View(model);
@@ -36,7 +37,6 @@ namespace WEB_Proje.web.Controllers {
                     return View(model);
                 }
 
-                // Обработка цены со скидкой
                 decimal? newPrice = null;
                 if(model.IsOnSale) {
                     if(string.IsNullOrEmpty(model.NewPrice) || !decimal.TryParse(model.NewPrice, out decimal parsedNewPrice) || parsedNewPrice <= 0) {
@@ -46,10 +46,8 @@ namespace WEB_Proje.web.Controllers {
                     newPrice = parsedNewPrice;
                 }
 
-                // Обработка изображения
                 string imageFileName = null;
                 if(!string.IsNullOrEmpty(model.ImagePath)) {
-                    // Проверяем существует ли файл
                     var serverPath = Server.MapPath(model.ImagePath);
                     if(!System.IO.File.Exists(serverPath)) {
                         ModelState.AddModelError("ImagePath", "Fișierul nu există la calea specificată");
@@ -58,7 +56,6 @@ namespace WEB_Proje.web.Controllers {
                     imageFileName = Path.GetFileName(model.ImagePath);
                 }
 
-                // Создание и сохранение продукта
                 var product = new UDdProducts {
                     Name = model.Name,
                     Description = model.Description,
@@ -108,8 +105,8 @@ namespace WEB_Proje.web.Controllers {
             return View(viewModels); 
         }
 
-
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteProduct(int id) {
             var product = db.Products.Find(id);
             if(product != null) {
