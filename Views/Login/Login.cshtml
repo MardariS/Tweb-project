@@ -31,11 +31,11 @@
 
 <body>
     <div class="login-container">
-        <h2>Logen</h2>
+        <h2>Login</h2>
         <!-- introducerea login si password -->
         @using(Html.BeginForm("Login", "Login", FormMethod.Post)) {
-            <input type="text" name="Username" placeholder="Logen" required />
-            <input type="password" name="Password" placeholder="Posword" required />
+            <input type="text" name="Username" placeholder="Login" required />
+            <input type="password" name="Password" placeholder="Passwod" required />
             <button type="submit">Submit</button>
 
         }

@@ -1,12 +1,12 @@
 ﻿@using System.Web.Optimization
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "_Comanda";
     Layout = null;
 }
 
 <head>
-    <title>Inregistrare</title>
+    <title>Logen</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,28 +31,25 @@
 
 <body>
     <div class="login-container">
-        <h2>Inregistrare</h2>
-
+        <h2>Login</h2>
         <!-- introducerea login si password -->
-        @using(Html.BeginForm("Register", "Login", FormMethod.Post)) {
-            <input type="text" name="Username" placeholder="Username" required />
-            <input type="password" name="Password" placeholder="Password" required />
-            <input type="password" name="RepPassword" placeholder="Repeat password" required />
-            <input type="text" name="Email" placeholder="Email" />
-            <input type="text" name="Phone" placeholder="Phone" />
+        @using(Html.BeginForm("Login", "Login", FormMethod.Post)) {
+            <input type="text" name="Denumire" placeholder="Denumire" required />
+            <input type="password" name="Tip" placeholder="Tip" required />
+            <button type="submit">Submit</button>
 
-            <button type="submit">Inregistreaza-ma</button>
         }
 
-        <!-- La autorizatie -->
-        <form action="@Url.Action("Login", "Login")" method="get">
-            <button type="submit">Autorizatie</button>
+        <!-- La registrare -->
+        <form action="@Url.Action("Register", "Login")" method="get">
+            <button type="submit">Crearea comenzii</button>
         </form>
 
-        <!-- Inapoi -->
+
+        <!-- Inapoi (Home) -->
         <form action="@Url.Action("Index", "Home")" method="get">
-            <button type="submit">Inapoi</button>
+            <button type="submit">Back</button>
         </form>
-
     </div>
 </body>
+

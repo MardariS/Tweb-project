@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="display-header d-flex justify-content-between pb-3">
-                <h2 class="display-7 text-dark text-uppercase">Sale Products</h2>
+                <h2 class="display-7 text-dark text-uppercase">La reducere</h2>
             </div>
 
             <div class="swiper product-watch-swiper">
@@ -32,27 +32,33 @@
                                             }
                                         </div>
                                     }
-                                        <div class="cart-concern position-absolute">
-                                            <div class="cart-button d-flex">
-                                                <a href="#" class="btn btn-medium btn-black">
-                                                    Add to Cart
-                                                    <svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg>
-                                                </a>
+                                    @if(User.IsInRole("User")) {
+                                        using(Html.BeginForm("AddToCart", "Cart", FormMethod.Post)) {
+                                            @Html.Hidden("productId", product.Id)
+                                            <div class="cart-concern position-absolute">
+                                                <div class="cart-button d-flex">
+                                                    <button type="submit" class="btn btn-medium btn-black">
+                                                        În coș
+                                                        <svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                            <h3 class="card-title text-uppercase">
-                                                <a href="#">@product.Name</a>
-                                            </h3>
-                                            <span class="item-price text-primary">
-                                                <s>$@product.Price</s> <span class="text-danger">$@product.NewPrice</span>
-                                            </span>
-                                        </div>
+                                        }
+                                    }
+
+                                    <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                        <h3 class="card-title text-uppercase">
+                                            <a href="#">@product.Name</a>
+                                        </h3>
+                                        <span class="item-price text-primary">
+                                            <s>$@product.Price</s> <span class="text-danger">$@product.NewPrice</span>
+                                        </span>
                                     </div>
+                                </div>
                             </div>
                         }
                     } else {
-                        <p>No sale products available.</p>
+                        <p>E gol ;(</p>
                     }
                 </div>
             </div>

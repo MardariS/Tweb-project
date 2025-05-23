@@ -5,11 +5,7 @@
         <!-- All products -->
         <div class="row">
             <div class="display-header d-flex justify-content-between pb-3">
-                <h2 class="display-7 text-dark text-uppercase">All Products</h2>
-                <div class="btn-right">
-                    <a href="@Url.Action("AddProduct")" class="btn btn-medium btn-normal text-uppercase">Add Product</a>
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
-                </div>
+                <h2 class="display-7 text-dark text-uppercase">Produse noi</h2>
             </div>
 
             <div class="swiper product-watch-swiper">
@@ -38,18 +34,20 @@
                                             }
                                         </div>
                                     }
-                                    
 
-                                    @using(Html.BeginForm("AddToCart", "Cart", FormMethod.Post)) {
-                                        @Html.Hidden("productId", product.Id)
-                                        <div class="cart-concern position-absolute">
-                                            <div class="cart-button d-flex">
-                                                <button type="submit" class="btn btn-medium btn-black">
-                                                    Add to Cart
-                                                    <svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg>
-                                                </button>
+
+                                    @if(User.IsInRole("User")) {
+                                        using(Html.BeginForm("AddToCart", "Cart", FormMethod.Post)) {
+                                            @Html.Hidden("productId", product.Id)
+                                            <div class="cart-concern position-absolute">
+                                                <div class="cart-button d-flex">
+                                                    <button type="submit" class="btn btn-medium btn-black">
+                                                        În coș
+                                                        <svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
                                     }
 
 
@@ -63,7 +61,7 @@
                             </div>
                         }
                     } else {
-                        <p>No products available.</p>
+                        <p>E gol ;(</p>
                     }
                 </div>
             </div>

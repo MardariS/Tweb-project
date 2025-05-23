@@ -34,56 +34,47 @@ namespace WEB_Proje.web.Controllers{
 
         // POST: Logare
         [HttpPost]
-        public ActionResult Login(string username, string password) {
-            var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
-            if(user != null) {
-                string role = ((URole)user.userRole).ToString();
-
-                var ticket = new FormsAuthenticationTicket(
-                    1,
-                    user.Username,
-                    DateTime.Now,
-                    DateTime.Now.AddMinutes(30),
-                    false,
-                    role, 
-                    FormsAuthentication.FormsCookiePath
-                );
-
-                string encryptedTicket = FormsAuthentication.Encrypt(ticket);
-
-                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                Response.Cookies.Add(cookie);
-
-                return RedirectToAction("Index", "Home");
+        public ActionResult Login(UserLoginModel model) {
+            if(!ModelState.IsValid) {
+                return View(model);
             }
 
-            ViewBag.Error = "Login and password is incorect";
-            return View();
+            using(var db = new UserContent()) {
+                var user = db.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
+
+                if(user != null) {
+                    string role = ((URole)user.userRole).ToString();
+
+                    var ticket = new FormsAuthenticationTicket(
+                        1,
+                        user.Username,
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(30),
+                        false,
+                        role,
+                        FormsAuthentication.FormsCookiePath
+                    );
+
+                    string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+                    var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    Response.Cookies.Add(authCookie);
+
+                    HttpCookie userLoginInfoCookie = new HttpCookie("UserLoginInfo");
+                    userLoginInfoCookie["IP"] = Request.UserHostAddress;
+                    userLoginInfoCookie["LoginTime"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    userLoginInfoCookie.Expires = DateTime.Now.AddDays(7);
+                    userLoginInfoCookie.Path = "/";
+                    userLoginInfoCookie.Domain = "localhost";
+                    Response.Cookies.Add(userLoginInfoCookie);
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ViewBag.Error = "Login sau parola incorectă.";
+            return View(model);
         }
 
-        //public ActionResult Login(UserLoginModel user) {
-        //    var dd = new UserDateLogin() {
-        //        Password = user.Password,
-        //        Username = user.Username,
-        //    };
-
-        //    var userVar = userLoginInterface.ValidateAuth(dd);
-
-        //    if(userVar == null) {
-        //        return View();
-        //    }
-
-        //    bool isAuth = userLoginInterface.IUserAuthorization(dd);
-
-        //    if(!isAuth) {
-        //        return RedirectToAction("Login", "Home");
-        //    }
-
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-
-        // GET: Registrare
         public ActionResult Register() {
             return View();
         }
@@ -99,15 +90,24 @@ namespace WEB_Proje.web.Controllers{
                         return View(user);  
                     }
 
-                    var newUser = new UDdTable() {
+                    //!!!
+                    if(!logingBL.ValidatePassword(user.Password, user.RepPassword)) {
+                        return View(user);
+                    }
+
+                    var newUser = new UDdTable {
                         Username = user.Username,
                         Password = user.Password,
+                        Email = user.Email ?? string.Empty,
+                        Phone = user.Phone ?? string.Empty,
                         userRole = URole.User
                     };
 
                     db.Users.Add(newUser);
                     db.SaveChanges();
                 }
+
+
                 return RedirectToAction("Index", "Home");
 
             }

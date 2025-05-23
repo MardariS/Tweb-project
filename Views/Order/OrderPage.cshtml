@@ -1,12 +1,13 @@
-﻿@using System.Web.Optimization
+﻿
+@using System.Web.Optimization
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "OrderPage";
     Layout = null;
 }
 
 <head>
-    <title>Inregistrare</title>
+    <title>Order</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,28 +32,22 @@
 
 <body>
     <div class="login-container">
-        <h2>Inregistrare</h2>
-
+        <h2>Comanda</h2>
         <!-- introducerea login si password -->
-        @using(Html.BeginForm("Register", "Login", FormMethod.Post)) {
-            <input type="text" name="Username" placeholder="Username" required />
-            <input type="password" name="Password" placeholder="Password" required />
-            <input type="password" name="RepPassword" placeholder="Repeat password" required />
-            <input type="text" name="Email" placeholder="Email" />
-            <input type="text" name="Phone" placeholder="Phone" />
-
-            <button type="submit">Inregistreaza-ma</button>
+        @using(Html.BeginForm("Order", "OrderPage", FormMethod.Post)) {
+            <input type="text" name="ProductName" placeholder="Denumire Produs" required />
+            <input type="text" name="Cantitate" placeholder="Cantitate" required />
+            <input type="text" name="Phone" placeholder="Numar de contact" required />
+            <input type="text" name="Posta" placeholder="Posta" required />
+            <button type="submit">Trimite</button>
         }
 
-        <!-- La autorizatie -->
-        <form action="@Url.Action("Login", "Login")" method="get">
-            <button type="submit">Autorizatie</button>
-        </form>
 
-        <!-- Inapoi -->
+        <!-- Inapoi (Home) -->
         <form action="@Url.Action("Index", "Home")" method="get">
-            <button type="submit">Inapoi</button>
+            <button type="submit">Back</button>
         </form>
-
     </div>
 </body>
+
+

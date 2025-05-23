@@ -197,3 +197,7 @@ D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Security.Cryptography.Xml.xml
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Security.Principal.Windows.xml
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Text.Encodings.Web.xml
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.ValueTuple.xml
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\Microsoft.AspNetCore.Session.dll
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\Microsoft.Extensions.Caching.Abstractions.dll
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\Microsoft.AspNetCore.Session.xml
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\Microsoft.Extensions.Caching.Abstractions.xml

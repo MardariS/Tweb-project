@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "_CoockieInfo";
+}
+
+@if(User.IsInRole("User") || User.IsInRole("Admin")) {
+    <div>
+        <p>IP: <strong>@ViewBag.IP</strong></p>
+        <p>Login Time: <strong>@ViewBag.LoginTime</strong></p>
+    </div>
+}
+
+

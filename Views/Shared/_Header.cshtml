@@ -23,7 +23,7 @@
                 <div class="offcanvas-body">
                     <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link me-4 active" href="#billboard">Home</a>
+                            <a class="nav-link me-4 active" href="#billboard">Pagina principală</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-4" href="#company-services">Servicii</a>
@@ -32,7 +32,7 @@
                             <a class="nav-link me-4" href="#mobile-products">Produse</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-4" href="#smart-watches">Reduceri</a>
+                            <a class="nav-link me-4" href="#smart-watches">La reduceri</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-4" href="#yearly-sale">Informatie sezoniera</a>
@@ -45,7 +45,7 @@
                             <div class="user-items ps-5">
                                 <ul class="d-flex justify-content-end list-unstyled">
 
-                                    <!-- User Nikname -->
+                                    <!-- User Niсkname -->
                                     @if(User.IsInRole("User") || User.IsInRole("Admin")) {
                                         <li class="pe-3">
                                             <p>Hi, @User.Identity.Name</p>
@@ -68,7 +68,7 @@
                                     }
 
                                     <!-- Cosul -->
-                                    @if(User.IsInRole("User") || User.IsInRole("Admin")) {
+                                    @if(User.IsInRole("User")) {
                                         <li class="pe-3">
                                             <a href="@Url.Action("CartProducts", "Cart")">
                                                 <svg class="cart">
@@ -84,7 +84,6 @@
                                     }
 
                                     <!-- Logare -->
-                                  
                                         <li class="pe-3">
                                             <a href="@Url.Action("Login", "Login")">
                                                 <svg class="user">

@@ -82,7 +82,7 @@ namespace WEB_Proje.web.Controllers {
             }
             catch(Exception ex) {
                 var message = ex.InnerException?.InnerException?.Message ?? ex.Message;
-                throw new Exception("Ошибка при сохранении: " + message);
+                throw new Exception("Error: " + message);
             }
         }
 
@@ -102,8 +102,18 @@ namespace WEB_Proje.web.Controllers {
                 ImageFileName = p.ImageFileName
             }).ToList();
 
+
+            //Coockie
+            var ip = Request.Cookies["UserLoginInfo"]?["IP"] ?? "Unknown";
+            var loginTime = Request.Cookies["UserLoginInfo"]?["LoginTime"] ?? "No time";
+
+            ViewBag.IP = ip;
+            ViewBag.LoginTime = loginTime;
+
             return View(viewModels); 
         }
+
+
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -116,5 +126,7 @@ namespace WEB_Proje.web.Controllers {
 
             return RedirectToAction("Index");
         }
+
+       
     }
 }
