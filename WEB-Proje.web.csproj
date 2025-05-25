@@ -500,12 +500,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Login\UserLoginModel.cs" />
-    <Compile Include="Models\Product\CartStufff.cs" />
-    <Compile Include="Models\Product\ProductModel.cs" />
-    <Compile Include="Models\Product\ProductRepository.cs" />
-    <Compile Include="Models\Product\ShopStuff.cs" />
-    <Compile Include="Models\Register\UserRegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -550,6 +544,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>

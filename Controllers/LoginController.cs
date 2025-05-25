@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using WEB_Proje.BussinesLogic.Interface.LoginInterface;
-using WEB_Proje.web.Models.Login;
 using WEB_Proje.BussinesLogic.DBModel;
 using WEB_Proje.Domain.Entities;
 using WEB_Proje.Domain.Enums;
@@ -9,7 +8,8 @@ using WEB_Proje.BussinesLogic.BlStructure;
 using System.Web.Security;
 using System.Web;
 using System;
-
+using WEB_Proje.Domain.Login;
+using WEB_Proje.Domain.Entities.User;
 
 namespace WEB_Proje.web.Controllers{
     public class LoginController : Controller{
@@ -34,7 +34,7 @@ namespace WEB_Proje.web.Controllers{
 
         // POST: Logare
         [HttpPost]
-        public ActionResult Login(UserLoginModel model) {
+        public ActionResult Login(UserDateLogin model) {
             if(!ModelState.IsValid) {
                 return View(model);
             }
@@ -90,7 +90,6 @@ namespace WEB_Proje.web.Controllers{
                         return View(user);  
                     }
 
-                    //!!!
                     if(!logingBL.ValidatePassword(user.Password, user.RepPassword)) {
                         return View(user);
                     }

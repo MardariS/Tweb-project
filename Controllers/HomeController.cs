@@ -1,89 +1,39 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using WEB_Proje.web.Models.Product;
 using WEB_Proje.BussinesLogic.DBModel;
-using WEB_Proje.Domain.Entities;
-using System.IO;
-using System.Data.Entity.Validation;
+using WEB_Proje.Domain.Product;
+using WEB_Proje.BussinesLogic.BlStructure;
+using WEB_Proje.BussinesLogic.Core;
 
-namespace WEB_Proje.web.Controllers {
+    namespace WEB_Proje.web.Controllers {
     public class HomeController : Controller {
 
         readonly ProductContext db = new ProductContext();
 
-        [Authorize(Roles = "Admin")]
+        readonly ProductBL pl = new ProductBL();
+
+
+        // --- Pagina de adaugare ---
         public ActionResult AddProduct() {
             return View();
         }
-
 
         // --- Adaugarea Produs ---
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddProduct(ProductModel model) {
-            try {
-                if(!ModelState.IsValid) {
-                    return View(model);
-                }
+            var user = BussinesLogic.Session.GetLoggedInUser(this.HttpContext); // например, сессия или куки
+            var admin = new AdminAPI(user);
 
-                if(!int.TryParse(model.Cantitate, out int cantitate) || cantitate <= 0) {
-                    ModelState.AddModelError("Cantitate", "Cantitate invalidă (trebuie să fie număr pozitiv)");
-                    return View(model);
-                }
+            var serverRootPath = Server.MapPath("~");
 
-                if(!decimal.TryParse(model.Price, out decimal price) || price <= 0) {
-                    ModelState.AddModelError("Price", "Preț invalid (trebuie să fie număr pozitiv)");
-                    return View(model);
-                }
-
-                decimal? newPrice = null;
-                if(model.IsOnSale) {
-                    if(string.IsNullOrEmpty(model.NewPrice) || !decimal.TryParse(model.NewPrice, out decimal parsedNewPrice) || parsedNewPrice <= 0) {
-                        ModelState.AddModelError("NewPrice", "Preț reducere invalid");
-                        return View(model);
-                    }
-                    newPrice = parsedNewPrice;
-                }
-
-                string imageFileName = null;
-                if(!string.IsNullOrEmpty(model.ImagePath)) {
-                    var serverPath = Server.MapPath(model.ImagePath);
-                    if(!System.IO.File.Exists(serverPath)) {
-                        ModelState.AddModelError("ImagePath", "Fișierul nu există la calea specificată");
-                        return View(model);
-                    }
-                    imageFileName = Path.GetFileName(model.ImagePath);
-                }
-
-                var product = new UDdProducts {
-                    Name = model.Name,
-                    Description = model.Description,
-                    Cantitate = cantitate,
-                    Price = price,
-                    NewPrice = newPrice,
-                    IsOnSale = model.IsOnSale,
-                    ImagePath = model.ImagePath,
-                    ImageFileName = imageFileName
-                };
-
-                db.Products.Add(product);
-                db.SaveChanges();
-
+            if(admin.AddProduct(model, serverRootPath, out string error)) {
                 return RedirectToAction("Index");
             }
-            catch(DbEntityValidationException ex) {
-                foreach(var validationErrors in ex.EntityValidationErrors) {
-                    foreach(var validationError in validationErrors.ValidationErrors) {
-                        ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                }
-                return View(model);
-            }
-            catch(Exception ex) {
-                var message = ex.InnerException?.InnerException?.Message ?? ex.Message;
-                throw new Exception("Error: " + message);
-            }
+
+            ModelState.AddModelError("", error);
+            return View(model);
         }
 
 
@@ -103,20 +53,12 @@ namespace WEB_Proje.web.Controllers {
             }).ToList();
 
 
-            //Coockie
-            var ip = Request.Cookies["UserLoginInfo"]?["IP"] ?? "Unknown";
-            var loginTime = Request.Cookies["UserLoginInfo"]?["LoginTime"] ?? "No time";
-
-            ViewBag.IP = ip;
-            ViewBag.LoginTime = loginTime;
-
             return View(viewModels); 
         }
 
 
-
+        // ---Stergerea Produsului---
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public ActionResult DeleteProduct(int id) {
             var product = db.Products.Find(id);
             if(product != null) {
@@ -125,8 +67,6 @@ namespace WEB_Proje.web.Controllers {
             }
 
             return RedirectToAction("Index");
-        }
-
-       
+        }  
     }
 }

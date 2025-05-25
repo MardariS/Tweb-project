@@ -1,4 +1,4 @@
-﻿@using WEB_Proje.web.Models.Product
+﻿@model List<WEB_Proje.Domain.Product.ProductModel>
 
 <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
@@ -40,12 +40,11 @@
                         <li class="nav-item">
                             <a class="nav-link me-4" href="#latest-blog">Blog</a>
                         </li>
-                       
+
                         <li class="nav-item">
                             <div class="user-items ps-5">
                                 <ul class="d-flex justify-content-end list-unstyled">
 
-                                    <!-- User Niсkname -->
                                     @if(User.IsInRole("User") || User.IsInRole("Admin")) {
                                         <li class="pe-3">
                                             <p>Hi, @User.Identity.Name</p>
@@ -76,7 +75,7 @@
                                                 </svg>
                                                 @if(Session["Cart"] != null) {
                                                     <span class="cart-count">
-                                                        @(((ShopStuff)Session["Cart"]).Items.Sum(i => i.Quantity))
+                                                        @(((List<WEB_Proje.Domain.CartStuff.CartStufff>)Session["Cart"]).Sum(i => i.Quantity))
                                                     </span>
                                                 }
                                             </a>
@@ -84,14 +83,14 @@
                                     }
 
                                     <!-- Logare -->
-                                        <li class="pe-3">
-                                            <a href="@Url.Action("Login", "Login")">
-                                                <svg class="user">
-                                                    <use xlink:href="#user"></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    
+                                    <li class="pe-3">
+                                        <a href="@Url.Action("Login", "Login")">
+                                            <svg class="user">
+                                                <use xlink:href="#user"></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+
 
                                     <!-- Logout -->
                                     @if(User.IsInRole("User") || User.IsInRole("Admin")) {

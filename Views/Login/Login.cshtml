@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@model WEB_Proje.Domain.Login.UserLoginModel
 
 @{
     ViewBag.Title = "Login";
@@ -32,21 +33,32 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <!-- introducerea login si password -->
-        @using(Html.BeginForm("Login", "Login", FormMethod.Post)) {
-            <input type="text" name="Username" placeholder="Login" required />
-            <input type="password" name="Password" placeholder="Passwod" required />
-            <button type="submit">Submit</button>
 
+        @* Показать ModelState ошибки *@
+        @if(!ViewData.ModelState.IsValid) {
+            <div style="color:red;">
+                <ul>
+                    @foreach(var error in ViewData.ModelState.Values.SelectMany(v => v.Errors)) {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
         }
 
-        <!-- La registrare -->
+        @if(ViewBag.Error != null) {
+            <div style="color: red;">@ViewBag.Error</div>
+        }
+
+        @using(Html.BeginForm("Login", "Login", FormMethod.Post)) {
+            <input type="text" name="Username" placeholder="Login" required />
+            <input type="password" name="Password" placeholder="Password" required />
+            <button type="submit">Submit</button>
+        }
+
         <form action="@Url.Action("Register", "Login")" method="get">
             <button type="submit">Registrare</button>
         </form>
 
-
-        <!-- Inapoi (Home) -->
         <form action="@Url.Action("Index", "Home")" method="get">
             <button type="submit">Back</button>
         </form>

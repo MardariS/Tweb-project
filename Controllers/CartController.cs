@@ -1,8 +1,11 @@
 ﻿using System.Web.Mvc;
 using WEB_Proje.BussinesLogic.DBModel;
-using WEB_Proje.web.Models.Product;
+using WEB_Proje.Domain.ShopStuff;
+using WEB_Proje.Domain.Product;
+
 
 namespace WEB_Proje.web.Controllers
+
 {
     public class CartController : Controller{
 
