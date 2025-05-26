@@ -43,6 +43,9 @@ namespace WEB_Proje.web.Controllers{
                 var user = db.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
 
                 if(user != null) {
+                    Session["Username"] = user.Username;
+                    Session["Password"] = user.Password; 
+
                     string role = ((URole)user.userRole).ToString();
 
                     var ticket = new FormsAuthenticationTicket(

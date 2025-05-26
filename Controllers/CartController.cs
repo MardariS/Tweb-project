@@ -45,7 +45,7 @@ namespace WEB_Proje.web.Controllers
 
             return RedirectToAction("CartProducts");
         }
-
+            
         private ShopStuff GetCart() {
             var cart = Session["Cart"] as ShopStuff;
             if(cart == null) {

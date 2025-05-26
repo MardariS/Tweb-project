@@ -1,9 +1,9 @@
-﻿@model WEB_Proje.web.Models.Product.ShopStuff
+﻿@model WEB_Proje.Domain.ShopStuff.ShopStuff
 @using System.Web.Optimization
 
 
 
-
+    
 @{
     ViewBag.Title = "CartProducts";
     Layout = null;
@@ -85,13 +85,12 @@
                 @foreach(var item in Model.Items) {
                     <tr>
                         <td>
-                            <img src="~/Content/Style/images/product-item1.jpg" width="50" />
+                            <img src="~/Content/Style/images/product-item1.jpg" width="50" alt="@item.ProductName" />
                             @item.ProductName
                         </td>
                         <td>@item.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
                         <td>@item.Quantity</td>
                         <td>@((item.Price * item.Quantity).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US")))</td>
-
                     </tr>
                 }
             </tbody>

@@ -23,9 +23,13 @@ using WEB_Proje.BussinesLogic.Core;
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddProduct(ProductModel model) {
-            var user = BussinesLogic.Session.GetLoggedInUser(this.HttpContext); // например, сессия или куки
-            var admin = new AdminAPI(user);
+            var user = BussinesLogic.Session.GetLoggedInUser(this.HttpContext);
 
+            if(user == null) {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var admin = new AdminAPI(user); 
             var serverRootPath = Server.MapPath("~");
 
             if(admin.AddProduct(model, serverRootPath, out string error)) {
