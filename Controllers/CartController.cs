@@ -2,6 +2,11 @@
 using WEB_Proje.BussinesLogic.DBModel;
 using WEB_Proje.Domain.ShopStuff;
 using WEB_Proje.Domain.Product;
+using WEB_Proje.BussinesLogic.BlStructure;
+using WEB_Proje.BussinesLogic.Interface.ProductInterface;
+using System.Web;
+using WEB_Proje.BussinesLogic.Core;
+using WEB_Proje.Domain.Entities.User;
 
 
 namespace WEB_Proje.web.Controllers
@@ -9,20 +14,24 @@ namespace WEB_Proje.web.Controllers
 {
     public class CartController : Controller{
 
+        private readonly IProductInterface _cartService;
+
         readonly ProductContext db = new ProductContext();
+
+        public CartController() {
+            _cartService = new CartLogic(new HttpSessionStateWrapper(System.Web.HttpContext.Current.Session));
+        }
 
         // GET: Cart
         public ActionResult CartProducts() {
-            var cart = Session["Cart"] as ShopStuff ?? new ShopStuff();
+            var cart = _cartService.GetCart();
             return View(cart);
         }
 
-        public void RemoveItem(int productId) {
-            var cart = GetCart(); 
-            cart.Items.RemoveAll(i => i.ProductId == productId); 
-            SaveCart(cart); 
+        public ActionResult RemoveItem(int productId) {
+            _cartService.RemoveFromCart(productId);
+            return RedirectToAction("CartProducts");
         }
-
 
 
         [HttpPost]
@@ -32,7 +41,6 @@ namespace WEB_Proje.web.Controllers
                 return HttpNotFound();
             }
 
-            var cart = GetCart();
             var productModel = new ProductModel {
                 Id = product.Id,
                 Name = product.Name,
@@ -40,23 +48,8 @@ namespace WEB_Proje.web.Controllers
                 ImagePath = $"/Content/Images/product-item{product.Id}.jpg"
             };
 
-            cart.AddItem(productModel);
-            SaveCart(cart);
-
+            _cartService.AddToCart(productModel);
             return RedirectToAction("CartProducts");
-        }
-            
-        private ShopStuff GetCart() {
-            var cart = Session["Cart"] as ShopStuff;
-            if(cart == null) {
-                cart = new ShopStuff();
-                Session["Cart"] = cart;
-            }
-            return cart;
-        }
-
-        private void SaveCart(ShopStuff cart) {
-            Session["Cart"] = cart;
         }
     }
 }

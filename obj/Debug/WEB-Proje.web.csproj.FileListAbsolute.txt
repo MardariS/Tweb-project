@@ -114,6 +114,7 @@ D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Web.WebPages.dll
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\System.Web.WebPages.Razor.dll
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.BussinesLogic.dll
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.Domain.dll
+D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WebActivatorEx.dll
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WebGrease.dll
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\ZstdSharp.dll
 D:\CSharp\repos\WEB-Proje\WEB-Proje.web\bin\WEB-Proje.BussinesLogic.pdb

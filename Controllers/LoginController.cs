@@ -10,6 +10,8 @@ using System.Web;
 using System;
 using WEB_Proje.Domain.Login;
 using WEB_Proje.Domain.Entities.User;
+using WEB_Proje.Domain.Models;
+
 
 namespace WEB_Proje.web.Controllers{
     public class LoginController : Controller{
@@ -43,31 +45,39 @@ namespace WEB_Proje.web.Controllers{
                 var user = db.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
 
                 if(user != null) {
-                    Session["Username"] = user.Username;
-                    Session["Password"] = user.Password; 
+                    // Получаем роль пользователя
+                    URole role = (URole)user.userRole;
 
-                    string role = ((URole)user.userRole).ToString();
+                    // Сохраняем в сессию объект с информацией о пользователе
+                    var userInfo = new UserSessionInfo {
+                        Username = user.Username,
+                        Role = role
+                    };
+                    Session["user"] = userInfo;
 
+                    // Создаём тикет для FormsAuthentication
                     var ticket = new FormsAuthenticationTicket(
                         1,
                         user.Username,
                         DateTime.Now,
                         DateTime.Now.AddMinutes(30),
                         false,
-                        role,
+                        role.ToString(), // можно использовать как string, если роль нужна в атрибутах [Authorize(Roles="...")]
                         FormsAuthentication.FormsCookiePath
                     );
 
+                    // Шифруем и создаём cookie
                     string encryptedTicket = FormsAuthentication.Encrypt(ticket);
                     var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     Response.Cookies.Add(authCookie);
 
+                    // Дополнительная кука с информацией
                     HttpCookie userLoginInfoCookie = new HttpCookie("UserLoginInfo");
                     userLoginInfoCookie["IP"] = Request.UserHostAddress;
                     userLoginInfoCookie["LoginTime"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     userLoginInfoCookie.Expires = DateTime.Now.AddDays(7);
                     userLoginInfoCookie.Path = "/";
-                    userLoginInfoCookie.Domain = "localhost";
+                    userLoginInfoCookie.Domain = "localhost"; // адаптируй под прод
                     Response.Cookies.Add(userLoginInfoCookie);
 
                     return RedirectToAction("Index", "Home");
@@ -77,6 +87,7 @@ namespace WEB_Proje.web.Controllers{
             ViewBag.Error = "Login sau parola incorectă.";
             return View(model);
         }
+
 
         public ActionResult Register() {
             return View();
