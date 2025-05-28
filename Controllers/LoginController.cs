@@ -1,36 +1,27 @@
 ﻿using System.Web.Mvc;
 using WEB_Proje.BussinesLogic.Interface.LoginInterface;
-using WEB_Proje.BussinesLogic.DBModel;
-using WEB_Proje.Domain.Entities;
-using WEB_Proje.Domain.Enums;
-using System.Linq;
 using WEB_Proje.BussinesLogic.BlStructure;
 using System.Web.Security;
 using System.Web;
 using System;
 using WEB_Proje.Domain.Login;
 using WEB_Proje.Domain.Entities.User;
+using WEB_Proje.Domain.Enums;
 using WEB_Proje.Domain.Models;
+using System.Web.UI.WebControls;
 
-
-namespace WEB_Proje.web.Controllers{
-    public class LoginController : Controller{
-        // Interfata logarii
+namespace WEB_Proje.web.Controllers {
+    public class LoginController : Controller {
         private readonly IUserLoginInterface userLoginInterface;
-
-        // Data de baze
-        readonly UserContent db = new UserContent();
-
-        // Logica de logare
-        readonly LoginBL logingBL = new LoginBL();
+        private readonly LoginBL bl;
 
         public LoginController() {
-            var bl = new BussinesLogic.BussinesLogicClass();
-            userLoginInterface = bl.GetUserLogin();
+            bl = new LoginBL();
+            userLoginInterface = bl;
         }
 
         // GET: Logare
-        public ActionResult Login(){
+        public ActionResult Login() {
             return View();
         }
 
@@ -38,47 +29,33 @@ namespace WEB_Proje.web.Controllers{
         [HttpPost]
         public ActionResult Login(UserDateLogin model) {
             if(!ModelState.IsValid) {
+                ViewBag.Error = "Login sau parola incorectă.";
                 return View(model);
             }
 
-            using(var db = new UserContent()) {
-                var user = db.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
+            if(userLoginInterface.IUserAuthorization(model)) {
+                var userInfo = userLoginInterface.ValidateAuth(model);
 
-                if(user != null) {
-                    // Получаем роль пользователя
-                    URole role = (URole)user.userRole;
+                if(userInfo != null) {
+                    var role = URole.User; 
 
-                    // Сохраняем в сессию объект с информацией о пользователе
-                    var userInfo = new UserSessionInfo {
-                        Username = user.Username,
+                    var sessionInfo = new UserSessionInfo {
+                        Username = userInfo.Username,
                         Role = role
                     };
-                    Session["user"] = userInfo;
+                    Session["user"] = sessionInfo;
 
-                    // Создаём тикет для FormsAuthentication
                     var ticket = new FormsAuthenticationTicket(
                         1,
-                        user.Username,
+                        userInfo.Username,
                         DateTime.Now,
                         DateTime.Now.AddMinutes(30),
                         false,
-                        role.ToString(), // можно использовать как string, если роль нужна в атрибутах [Authorize(Roles="...")]
+                        role.ToString(),
                         FormsAuthentication.FormsCookiePath
                     );
 
-                    // Шифруем и создаём cookie
-                    string encryptedTicket = FormsAuthentication.Encrypt(ticket);
-                    var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                    Response.Cookies.Add(authCookie);
-
-                    // Дополнительная кука с информацией
-                    HttpCookie userLoginInfoCookie = new HttpCookie("UserLoginInfo");
-                    userLoginInfoCookie["IP"] = Request.UserHostAddress;
-                    userLoginInfoCookie["LoginTime"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    userLoginInfoCookie.Expires = DateTime.Now.AddDays(7);
-                    userLoginInfoCookie.Path = "/";
-                    userLoginInfoCookie.Domain = "localhost"; // адаптируй под прод
-                    Response.Cookies.Add(userLoginInfoCookie);
+                    bl.SetAuthenticationCookies(Response, Request, ticket);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -88,41 +65,31 @@ namespace WEB_Proje.web.Controllers{
             return View(model);
         }
 
-
+        // GET: Register
         public ActionResult Register() {
             return View();
         }
 
-        // POST: Registrare
+        // POST: Register
         [HttpPost]
         public ActionResult Register(UserLoginModel user) {
             if(ModelState.IsValid) {
-                using(var db = new UserContent()) {
-                    var existingUser = db.Users.FirstOrDefault(u => u.Username == user.Username);
-
-                    if(existingUser != null) {
-                        return View(user);  
-                    }
-
-                    if(!logingBL.ValidatePassword(user.Password, user.RepPassword)) {
-                        return View(user);
-                    }
-
-                    var newUser = new UDdTable {
-                        Username = user.Username,
-                        Password = user.Password,
-                        Email = user.Email ?? string.Empty,
-                        Phone = user.Phone ?? string.Empty,
-                        userRole = URole.User
-                    };
-
-                    db.Users.Add(newUser);
-                    db.SaveChanges();
+                if(!userLoginInterface.ValidatePassword(user.Password, user.RepPassword)) {
+                    ViewBag.Error = "Parolele nu coincid.";
+                    return View(user);
                 }
 
+                var userToRegister = new UserDateLogin {
+                    Username = user.Username,
+                    Password = user.Password
+                };
+
+                if(!userLoginInterface.IUserRegistration(userToRegister)) {
+                    ViewBag.Error = "Utilizatorul deja există.";
+                    return View(user);
+                }
 
                 return RedirectToAction("Index", "Home");
-
             }
 
             return View(user);
@@ -130,6 +97,7 @@ namespace WEB_Proje.web.Controllers{
 
         public ActionResult Logout() {
             FormsAuthentication.SignOut();
+            Session.Clear();
             return RedirectToAction("Index", "Home");
         }
     }

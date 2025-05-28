@@ -15,6 +15,7 @@
 
 <html>
 <head>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,13 +64,46 @@
             font-size: 18px;
             color: #666;
         }
+        .buttonicus {
+            background-color: gray; 
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 16px;
+            margin: 10px auto;
+            display: block;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+            .buttonicus:hover {
+                background-color: black;
+            }
+
+        .rem {
+            background-color: gray;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px auto;
+            display: block;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+            .rem:hover {
+                background-color: black;
+            }
+
     </style>
-
-
-
 </head>
+
 <body>
-    <h2>Cart Ver 0.1</h2>
+    <h2>Cart Ver 0.2</h2>
 
     @if(Model?.Items != null && Model.Items.Any()) {
         <table class="table">
@@ -79,6 +113,7 @@
                     <th>Pret</th>
                     <th>Cantitate</th>
                     <th>Suma</th>
+                    <th>Actiuni</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,6 +126,12 @@
                         <td>@item.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
                         <td>@item.Quantity</td>
                         <td>@((item.Price * item.Quantity).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US")))</td>
+                        <td>
+                            @using(Html.BeginForm("RemoveItem", "Cart", FormMethod.Post)) {
+                                @Html.Hidden("productId", item.ProductId)
+                                <button type="submit" class="rem">Remove</button>
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -98,11 +139,19 @@
                 <tr>
                     <td colspan="3">Total:</td>
                     <td>@Model.GetTotal().ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
+                    <td></td>
                 </tr>
             </tfoot>
         </table>
+        <form action="@Url.Action("Index", "Home")" method="get">
+            <button class="buttonicus" type="submit">Inapoi</button>
+        </form>
     } else {
         <p>Cosul e go :(</p>
+        <form action="@Url.Action("Index", "Home")" method="get">
+            <button class="buttonicus" type="submit">Inapoi</button>
+        </form>
     }
+
 </body>
 </html>

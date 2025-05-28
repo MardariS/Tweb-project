@@ -73,11 +73,14 @@
                                                 <svg class="cart">
                                                     <use xlink:href="#cart"></use>
                                                 </svg>
-                                                @if(Session["Cart"] != null) {
-                                                    <span class="cart-count">
-                                                        @(((List<WEB_Proje.Domain.CartStuff.CartStufff>)Session["Cart"]).Sum(i => i.Quantity))
-                                                    </span>
+                                                @{
+                                                    var cart = Session["Cart"] as WEB_Proje.Domain.ShopStuff.ShopStuff;
+                                                    var count = cart != null ? cart.Items.Sum(i => i.Quantity) : 0;
                                                 }
+                                                @if(count > 0) {
+                                                    <span class="cart-count">@count</span>
+                                                }
+
                                             </a>
                                         </li>
                                     }

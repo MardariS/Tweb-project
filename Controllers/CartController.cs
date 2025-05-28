@@ -9,20 +9,17 @@ using WEB_Proje.BussinesLogic.Core;
 using WEB_Proje.Domain.Entities.User;
 
 
-namespace WEB_Proje.web.Controllers
-
-{
-    public class CartController : Controller{
+namespace WEB_Proje.web.Controllers {
+    public class CartController : Controller {
 
         private readonly IProductInterface _cartService;
-
-        readonly ProductContext db = new ProductContext();
+        private readonly ProductBL _productBL;
 
         public CartController() {
             _cartService = new CartLogic(new HttpSessionStateWrapper(System.Web.HttpContext.Current.Session));
+            _productBL = new ProductBL();
         }
 
-        // GET: Cart
         public ActionResult CartProducts() {
             var cart = _cartService.GetCart();
             return View(cart);
@@ -33,23 +30,21 @@ namespace WEB_Proje.web.Controllers
             return RedirectToAction("CartProducts");
         }
 
-
         [HttpPost]
         public ActionResult AddToCart(int productId) {
-            var product = db.Products.Find(productId);
-            if(product == null) {
+            var productModel = _productBL.GetProductModelById(productId);
+            if(productModel == null) {
                 return HttpNotFound();
             }
-
-            var productModel = new ProductModel {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price.ToString(),
-                ImagePath = $"/Content/Images/product-item{product.Id}.jpg"
-            };
 
             _cartService.AddToCart(productModel);
             return RedirectToAction("CartProducts");
         }
+
+        public ActionResult ClearCart() {
+            _cartService.ClearCart();
+            return RedirectToAction("CartProducts");
+        }
     }
+
 }
